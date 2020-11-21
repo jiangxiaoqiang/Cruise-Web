@@ -1,14 +1,12 @@
 import axios from 'axios';
-import store from "../../store";
-import { getAnalysis } from "../action/BookAnalysisAction";
+import store from "../store";
+import { getArticle } from "../action/ArticleAction";
 
 export function request(config) {
   return axios(config).then(
     response => {
-      console.info("Axios请求服务端返回结果是：", response.data.data);
-      const data = response.data.data;
-      console.info("result data:" + data)
-      store.dispatch(getAnalysis(data));
+      const data = response.data.result;
+      store.dispatch(getArticle(data));
     }
   ).catch(
     error => {
@@ -20,8 +18,7 @@ export function request(config) {
 export function requestWithAction(config, action) {
   return axios(config).then(
     response => {
-      console.info("Axios请求服务端返回结果是：", response.data);
-      const data = response.data.data;
+      const data = response.data.result;
       store.dispatch(action(data));
     }
   ).catch(
