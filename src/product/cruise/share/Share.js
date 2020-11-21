@@ -38,6 +38,11 @@ class Share extends Component{
             <div dangerouslySetInnerHTML={{ __html: article.content }}>
             </div>
           </div>
+          <div class="float-button">
+            <image></image>
+            <button>打开</button>
+            <div>固定在底部</div>
+          </div>
         </body>
       </div>
     );
