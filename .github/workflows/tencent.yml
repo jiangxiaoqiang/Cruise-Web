@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: yarn && yarn build
 
-    - name: Deploy
+    - name: Deploy1
       uses: garygrossgarten/github-action-scp@release
       with:
         local: build
