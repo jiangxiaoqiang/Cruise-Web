@@ -20,7 +20,7 @@ class Share extends Component{
     if(!article){
       return (
         <div>
-          无
+          无内容
         </div>
       );
     }
@@ -31,7 +31,7 @@ class Share extends Component{
           
         </header>
         <body>
-          <div className="h">
+          <div className="hello">
             <p>{article.title}</p>
           </div>
           <div>
