@@ -21,7 +21,11 @@ jobs:
       run: yarn build
 
     - name: Deploy
-      uses: root
+      uses: garygrossgarten/github-action-scp@release
       with:
         local: build
         remote: /root/www/cruise-web/
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        concurrency: 20
