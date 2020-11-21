@@ -11,17 +11,21 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@main
     
     - name: NodeInstall
-      run: sudo apt-get install node
+      run: sudo apt-get install nodejs
       
     # Build
     - name: Build
-      run: yarn build
+      run: yarn && yarn build
 
-    - name: Deploy
-      uses: root
+    - name: Deploy1
+      uses: garygrossgarten/github-action-scp@release
       with:
         local: build
         remote: /root/www/cruise-web/
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        concurrency: 20
