@@ -6,10 +6,10 @@ import { requestWithAction } from '../common/XHRClient';
 import { getArticle } from "../action/ArticleAction";
 import globalConfig from "../global.config.json";
 
-export function getArticleImpl() {
+export function getArticleImpl(id) {
     const config = {
         method: 'get',
-        url: globalConfig.apiServerUrl + '/post/article/share/1523',
+        url: globalConfig.apiServerUrl + '/post/article/share/' + id,
     };
     return requestWithAction(config, getArticle);
 }

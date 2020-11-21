@@ -11,12 +11,19 @@ class Share extends Component{
   }
 
   process() {
-    getArticleImpl();
+    const id = this.props.match.params.id;
+    getArticleImpl(id);
   }
 
   render(){
     const article = this.props.article;
-    console.log("article:" + JSON.stringify(article));
+    if(!article){
+      return (
+        <div>
+          无
+        </div>
+      );
+    }
 
     return (
       <div className="App">
