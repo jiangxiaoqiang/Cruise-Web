@@ -28,9 +28,8 @@ class Share extends Component{
     return (
       <div className="App">
         <header className="App-header">
-          
+          fwfgwegwgwew
         </header>
-        <body>
           <div className="hello">
             <p>{article.title}</p>
           </div>
@@ -38,12 +37,10 @@ class Share extends Component{
             <div dangerouslySetInnerHTML={{ __html: article.content }}>
             </div>
           </div>
-          <div class="float-button">
-            <image></image>
+          <div>
             <button>打开</button>
             <div>固定在底部</div>
           </div>
-        </body>
       </div>
     );
   }
