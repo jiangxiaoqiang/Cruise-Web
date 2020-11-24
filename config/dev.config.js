@@ -16,8 +16,12 @@ module.exports = {
                 ]
             ],
             plugins:[
+<<<<<<< HEAD
                 "@babel/plugin-transform-arrow-functions", 
                 "@babel/plugin-proposal-class-properties"
+=======
+                "@babel/plugin-transform-arrow-functions", "@babel/plugin-proposal-class-properties"
+>>>>>>> 07000b61df93dd995cf43850f8c7cfe4f57daaac
             ]
             }
         }
