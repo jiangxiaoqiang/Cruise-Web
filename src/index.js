@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import routes from './routes/routes';
 import store from './store';
+window.React = React;
 
 ReactDOM.render(
   <React.StrictMode>
