@@ -32,6 +32,16 @@
   font-size: calc(13px + 2vmin);
 }
 
+.fixed{ 
+  position: fixed; 
+  left: 0px; 
+  bottom: 0px; 
+  width: 100%; 
+  height: 50px; 
+  background-color: rgb(235, 147, 147); 
+  z-index: 9999;
+}
+
 .content{
   font-size: calc(10px + 2vmin);
   padding-left: 4vw;

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component,View,Text } from "react";
 import { getArticle } from '../../../action/ArticleAction';
 import { connect } from 'react-redux';
 import { getArticleImpl } from '../../../service/ArticleService';
@@ -42,6 +42,7 @@ class Share extends Component{
             <button>打开</button>
             <div>固定在底部</div>
           </div>
+          <div class="fixed">固定在底部</div>
       </div>
     );
   }
