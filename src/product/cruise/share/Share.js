@@ -2,6 +2,7 @@ import { Component } from "react";
 import { getArticle } from '../../../action/ArticleAction';
 import { connect } from 'react-redux';
 import { getArticleImpl } from '../../../service/ArticleService';
+import './Share.css'
 
 class Share extends Component{
 
@@ -30,10 +31,10 @@ class Share extends Component{
         <header className="App-header">
           fwfgwegwgwew
         </header>
-          <div className="hello">
+          <div className="title">
             <p>{article.title}</p>
           </div>
-          <div>
+          <div className="content">
             <div dangerouslySetInnerHTML={{ __html: article.content }}>
             </div>
           </div>
