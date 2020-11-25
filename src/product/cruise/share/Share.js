@@ -1,4 +1,4 @@
-import { Component,View,Text } from "react";
+import { Component } from "react";
 import { getArticle } from '../../../action/ArticleAction';
 import { connect } from 'react-redux';
 import { getArticleImpl } from '../../../service/ArticleService';
