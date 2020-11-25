@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { getArticle } from '../../../action/ArticleAction';
 import { connect } from 'react-redux';
-import { getArticleImpl } from '../../../service/ArticleService';
+//import { getArticleImpl } from '../../../service/ArticleService';
 
 class Share extends Component{
 
