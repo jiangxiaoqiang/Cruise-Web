@@ -38,7 +38,7 @@ class Share extends Component{
             <div dangerouslySetInnerHTML={{ __html: article.content }}>
             </div>
           </div>
-          <div class="fixed">
+          <div className="fixed">
             <div className="slogan">打开Cruise阅读体验更佳</div>
             <div className="open">打开</div>
           </div>
