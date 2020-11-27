@@ -28,6 +28,8 @@
   color: #61dafb;
 }
 
+
+
 .title{
   font-size: calc(13px + 2vmin);
 }
@@ -62,7 +64,6 @@
   font-size: calc(10px + 2vmin);
   padding-left: 4vw;
   padding-right: 4vw;
-  
 }
 
 .html{
@@ -70,6 +71,17 @@
   word-break: break-all;
   hyphens:auto;
   line-break: anywhere;
+  word-wrap:break-word;
+  overflow: hidden;
+  white-space : normal
+}
+
+.content pre{
+  white-space:pre-wrap;
+  white-space:-moz-pre-wrap;
+  white-space:-pre-wrap;
+  white-space:-o-pre-wrap;
+  word-wrap:break-word;
 }
 
 @keyframes App-logo-spin {
