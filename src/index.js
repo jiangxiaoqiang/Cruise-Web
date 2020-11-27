@@ -16,16 +16,24 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-document.documentElement.addEventListener('touchstart',function(event){
-  // 禁用双指缩放(无效果)
-  if (event.touches.length > 1) {
-    event.preventDefault();
-  }
-},false);
+window.onload = function () {
+  document.addEventListener('touchstart', function (event) {
+      if (event.touches.length > 1) {
+          event.preventDefault();
+      }
+  }, {
+      passive: false  // 关闭被动监听
+  });
+  var lastTouchEnd = 0;
+  document.addEventListener('touchend', function (event) {
+      var now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+      }
+      lastTouchEnd = now;
+  }, false);
+};
 
-document.addEventListener('touchmove', function (event) {
-  if (event.scale !== 1) { event.preventDefault(); }
-}, false);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
