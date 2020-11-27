@@ -28,10 +28,8 @@ class Share extends Component{
 
     return (
       <div className="App">
-        <header className="App-header">
-          fwfgwegwgwew
-        </header>
-          <div className="title">
+        <div className="app-body">
+        <div className="title">
             <p>{article.title}</p>
           </div>
           <div className="content">
@@ -42,6 +40,7 @@ class Share extends Component{
             <div className="slogan">打开Cruise阅读体验更佳</div>
             <div className="open">打开</div>
           </div>
+        </div>
       </div>
     );
   }

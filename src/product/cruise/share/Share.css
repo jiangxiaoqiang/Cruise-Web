@@ -1,5 +1,6 @@
 .App {
   text-align: left;
+  width: 50vw;
 }
 
 .App-logo {
@@ -27,6 +28,8 @@
 .App-link {
   color: #61dafb;
 }
+
+
 
 .title{
   font-size: calc(13px + 2vmin);
@@ -62,6 +65,7 @@
   font-size: calc(10px + 2vmin);
   padding-left: 4vw;
   padding-right: 4vw;
+  word-wrap:break-word;
 }
 
 @keyframes App-logo-spin {
