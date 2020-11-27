@@ -16,6 +16,13 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+document.documentElement.addEventListener('touchstart',function(event){
+  // 禁用双指缩放
+  if (event.touches.length > 1) {
+    event.preventDefault();
+  }
+},false);
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

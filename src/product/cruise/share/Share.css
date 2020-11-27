@@ -62,7 +62,14 @@
   font-size: calc(10px + 2vmin);
   padding-left: 4vw;
   padding-right: 4vw;
-  overflow: hidden;
+  
+}
+
+.html{
+  overflow-wrap: break-word;
+  word-break: break-all;
+  hyphens:auto;
+  line-break: anywhere;
 }
 
 @keyframes App-logo-spin {

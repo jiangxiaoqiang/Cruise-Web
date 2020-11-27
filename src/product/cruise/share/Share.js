@@ -2,7 +2,9 @@ import { Component } from "react";
 import { getArticle } from '../../../action/ArticleAction';
 import { connect } from 'react-redux';
 import { getArticleImpl } from '../../../service/ArticleService';
-import './Share.css'
+import './Share.css';
+import DOMPurify from 'dompurify';
+
 
 class Share extends Component{
 
@@ -26,6 +28,8 @@ class Share extends Component{
       );
     }
 
+    var clean = DOMPurify.sanitize(article.content);
+
     return (
       <div className="App">
         <header className="App-header">
@@ -35,7 +39,8 @@ class Share extends Component{
             <p>{article.title}</p>
           </div>
           <div className="content">
-            <div dangerouslySetInnerHTML={{ __html: article.content }}>
+            <div className="html" dangerouslySetInnerHTML={{ __html: clean}}>
+              
             </div>
           </div>
           <div className="fixed">
