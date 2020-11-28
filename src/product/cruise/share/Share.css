@@ -3,7 +3,6 @@
 }
 
 .App-logo {
-  height: 40vmin;
   pointer-events: none;
 }
 
@@ -15,12 +14,10 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 2vh;
   display: flex;
   flex-direction: column;
   align-items: left;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -28,10 +25,7 @@
   color: #61dafb;
 }
 
-
-
 .title{
-  font-size: calc(13px + 2vmin);
 }
 
 .fixed{ 
@@ -40,7 +34,6 @@
   bottom: 0px; 
   width: 100%; 
   display: flex;
-  height: 50px; 
   background-color: rgb(238, 224, 224); 
   z-index: 9999;
   justify-content: space-between;
@@ -48,22 +41,16 @@
 
 .open{
   background-color: rgb(233, 42, 42); 
-  margin-top: 1vh;
-  margin-bottom: 2vh;
-  border-radius: 1vw;
-  width: 20vw;
   text-align: center;
 }
 
 .slogan{
-  margin-top: 1vh;
-  margin-bottom: 2vh;
+ 
 }
 
 .content{
-  font-size: calc(10px + 2vmin);
-  padding-left: 4vw;
-  padding-right: 4vw;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .html{
