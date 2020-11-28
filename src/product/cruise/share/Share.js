@@ -32,9 +32,11 @@ class Share extends Component{
 
     return (
       <div className="App">
-        <div className="app-body">
         <div className="title">
-            <p>{article.title}</p>
+          <p>{article.title}</p>
+        </div>
+        <div className="app-body">
+        <div >
           </div>
           <div className="content">
             <div className="html" dangerouslySetInnerHTML={{ __html: clean}}>
