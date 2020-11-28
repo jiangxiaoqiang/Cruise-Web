@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getArticleImpl } from '../../../service/ArticleService';
 import './Share.css';
 import DOMPurify from 'dompurify';
+import pic from '../../../resource/img/logo192.png';
 
 
 class Share extends Component{
@@ -40,14 +41,15 @@ class Share extends Component{
           </div>
           <div className="content">
             <div className="html" dangerouslySetInnerHTML={{ __html: clean}}>
-              
+            
             </div>
           </div>
           <div className="fixed-buttom-bar">
+            <img src={pic}></img>
             <div className="slogan">打开Cruise阅读体验更佳</div>
             <div className="open">打开</div>
           </div>
-        </div>
+        </div>        
       </div>
     );
   }
