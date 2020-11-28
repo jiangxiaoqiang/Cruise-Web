@@ -41,7 +41,7 @@ class Share extends Component{
               
             </div>
           </div>
-          <div className="fixed">
+          <div className="fixed-buttom-bar">
             <div className="slogan">打开Cruise阅读体验更佳</div>
             <div className="open">打开</div>
           </div>

@@ -28,25 +28,13 @@
 .title{
 }
 
-.fixed{ 
-  position: fixed; 
-  left: 0px; 
-  bottom: 0px; 
-  width: 100%; 
-  display: flex;
-  background-color: rgb(238, 224, 224); 
-  z-index: 9999;
-  justify-content: space-between;
-}
+
 
 .open{
   background-color: rgb(233, 42, 42); 
   text-align: center;
 }
 
-.slogan{
- 
-}
 
 .content{
   padding-left: 1rem;
@@ -70,6 +58,24 @@
   white-space:-o-pre-wrap;
   word-wrap:break-word;
 }
+
+.fixed-buttom-bar{ 
+  position: fixed; 
+  left: 0px; 
+  bottom: 0px; 
+  width: 100%; 
+  height: 2rem;
+  display: flex;
+  background-color: rgb(238, 224, 224); 
+  z-index: 9999;
+  justify-content: space-between;
+}
+
+.slogan{
+ font-size: 0.7rem;
+ 
+}
+
 
 @keyframes App-logo-spin {
   from {
