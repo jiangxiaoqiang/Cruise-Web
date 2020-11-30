@@ -33,7 +33,7 @@
 }
 
 .content{
-  font-size: 0.45rem;
+  font-size: 0.55rem;
 }
 
 .html{
@@ -49,6 +49,11 @@
   white-space:-pre-wrap;
   white-space:-o-pre-wrap;
   word-wrap:break-word;
+}
+
+.content img{
+  /** 最大设备宽度 **/
+  max-width: 100%;
 }
 
 .fixed-buttom-bar{ 
