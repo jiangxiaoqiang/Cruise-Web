@@ -45,7 +45,7 @@ class Share extends Component{
             </div>
           </div>
           <div className="fixed-buttom-bar">
-            <img src={pic}></img>
+            <img src={pic} alt="app-icon"></img>
             <div className="slogan">打开Cruise阅读体验更佳</div>
             <div className="open">打开</div>
           </div>
