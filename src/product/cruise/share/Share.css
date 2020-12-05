@@ -63,7 +63,7 @@
   left: 0px; 
   bottom: 0.2rem;
   width: 100%; 
-  height: 1.5rem;
+  height: 1.2rem;
   display: flex;
   background-color:#ffffff; 
   z-index: 9999;
@@ -81,19 +81,20 @@
 }
 
 .slogan{
- font-size: 0.45rem;
+ font-size: 0.40rem;
 }
 
 .open{
   background-color: rgb(233, 42, 42); 
   text-align: center;
-  font-size: 0.5rem;
+  font-size: 0.45rem;
   border-radius: 0.5rem;
   width: 2rem;
-  height: 0.8rem;
+  height: 0.7rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 1rem;
 }
 
 @keyframes App-logo-spin {
