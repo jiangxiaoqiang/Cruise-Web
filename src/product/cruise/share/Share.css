@@ -33,7 +33,9 @@
 }
 
 .content{
-  font-size: 0.55rem;
+  font-size: 0.40rem;
+  /**页面底部有浮动栏目，留出一定的空隙**/
+  margin-bottom: 2.5rem;
 }
 
 .html{
