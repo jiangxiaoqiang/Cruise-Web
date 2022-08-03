@@ -2,7 +2,7 @@ name: cruise-web
 
 on:
   push:
-    branches: main
+    branches: main-legacy
 
 jobs:
   build-and-deploy:

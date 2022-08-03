@@ -2,7 +2,7 @@ name: management-system-pro
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
