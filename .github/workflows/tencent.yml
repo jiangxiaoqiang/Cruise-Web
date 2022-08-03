@@ -1,4 +1,4 @@
-name: management-system-pro
+name: cruise-web-pro
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
       # https://stackoverflow.com/questions/71318659/gitgithub-com-permission-denied-publickey-when-using-yarn-to-install-github
       - name: Build React App
         run: |
-          git config --global url.https://github.com/.insteadOf git@github.com: 
+          git config --global url."https://github".insteadOf ssh://git@github 
           npm install yarn -g
           yarn
           yarn build
