@@ -1,33 +1,46 @@
-name: cruise-web
+name: management-system-pro
 
 on:
   push:
-    branches: main
+    branches: [ master ]
 
 jobs:
-  build-and-deploy:
-    name: Setup, Build, Publish, and Deploy
+  build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install yarn
+        uses: borales/actions-yarn@v2.1.0
+        with: 
+         cmd: install
+      - name: Build React App
+        run: | 
+          yarn
+          yarn build
 
-    - name: Checkout
-      uses: actions/checkout@main
+      - name: Build image push to aliyun
+        uses: docker/build-push-action@v1
+        with:
+          registry: ${{ secrets.ALI_DOCKER_HUB_REGISTRY }}
+          username: ${{ secrets.ALIYUN_DOCKER_REPO_USER_NAME }}
+          password: ${{ secrets.ALIYUN_DOCKER_REPO_USER_PASSWORD }}
+          tags: ${{ github.sha }}
+          repository: reddwarf-pro/cruise-web
+          path: '.'
     
-    - name: NodeInstall
-      run: sudo apt-get install nodejs
-      
-    # Build
-    - name: Build
-      run: yarn && yarn build
+       # https://github.com/steebchen/kubectl
+      - name: deploy to cluster
+        uses: steebchen/kubectl@v2.0.0
+        with: # defaults to latest kubectl binary version
+          config: ${{ secrets.KUBE_CONFIG_DATA }}
+          command: set image --record deployment/cruise-web cruise-web=registry.cn-hangzhou.aliyuncs.com/reddwarf-pro/cruise-web:${{ github.sha }} -n reddwarf-pro
 
-    - name: Deploy to Server # 2. deploy to remote server
-      uses: AEnterprise/rsync-deploy@v1.0 # Use a third party action (https://github.com/AEnterprise/rsync-deploy)
-      env:
-        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }} # use pre-configured secret (the private key)
-        ARGS: -avz --delete # must have this variable
-        SERVER_PORT: "22" # SSH port
-        FOLDER: ./build # folder to push (./ is the root of current repo)
-        SERVER_IP: ${{ secrets.HOST }} # use pre-configured ssh_host value (e.g., IP or domain.com）
-        USERNAME: ${{ secrets.USER }} # use pre-configured ssh_username value
-        SERVER_DESTINATION: /root/www/cruise-web/
-
+      - name: verify deployment
+        uses: steebchen/kubectl@v2.0.0
+        with:
+          config: ${{ secrets.KUBE_CONFIG_DATA }}
+          version: v1.21.0 # specify kubectl binary version explicitly
+          command: rollout status deployment/cruise-web -n reddwarf-pro

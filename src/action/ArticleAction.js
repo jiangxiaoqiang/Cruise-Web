@@ -4,3 +4,17 @@ export function getArticle(article) {
       article: article
   };
 }
+
+export function getRecommandArticles(article) {
+  return {
+      type: "GET_RECOMMAND_ARTICLES",
+      article: article
+  };
+}
+
+export function getOriginalArticles(article) {
+  return {
+      type: "GET_ORIGINAL_ARTICLES",
+      article: article
+  };
+}

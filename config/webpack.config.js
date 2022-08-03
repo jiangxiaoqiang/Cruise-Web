@@ -441,6 +441,7 @@ module.exports = function (webpackEnv) {
                   [
                     require.resolve('babel-preset-react-app/dependencies'),
                     { helpers: true },
+                    "@babel/typescript"
                   ],
                 ],
                 cacheDirectory: true,
