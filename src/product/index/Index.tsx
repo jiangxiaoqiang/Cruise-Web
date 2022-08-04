@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Col, Divider, Row, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import './Index.css';
 import { connect } from 'react-redux';
 import * as articleService  from '../../service/ArticleService';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import About from '../about/About';
 
 const { TabPane } = Tabs;
 const onChange = (key: string) => {
@@ -75,24 +76,14 @@ const Index: React.FC = (props) => {
     articleService.getRecommandArticlesImpl(params).then(()=>{
       setPageNum(newPageNum);
     });
-    console.log("fetch data...");
   }
 
   const refresh = () => {
-    console.log("refresh...");
-  }
-
-  const onScrollHandle = () => {
-    console.log("refresh...");
+    
   }
 
   let items: JSX.Element[] = Array.from(localArticle.values());
-  if(items.length > 0) {
-    // debugger
-    console.log("items count:" + items.length);
-  }
   
-
   return (
     <div>
       <Row justify="center">
@@ -121,9 +112,14 @@ const Index: React.FC = (props) => {
                 {items}
               </InfiniteScroll> 
             </TabPane>
-            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>关于Cruise</span>} key="2">
+            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>权威资讯</span>} key="2">
               <div>
-                
+                <About></About>
+              </div>
+            </TabPane>
+            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>关于Cruise</span>} key="3">
+              <div>
+                <About></About>
               </div>
             </TabPane>
           </Tabs>
