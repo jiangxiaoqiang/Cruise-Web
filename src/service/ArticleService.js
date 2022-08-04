@@ -13,12 +13,13 @@ export function getArticleImpl(id) {
     return requestWithAction(config, getArticle);
 }
 
-export function getRecommandArticlesImpl() {
+export function getRecommandArticlesImpl(params) {
+    let body = JSON.stringify(params);
     const config = {
         method: 'post',
         url: '/post/article/newstories',
         headers: {'Content-Type': 'application/json'},
-        data: JSON.stringify({})
+        data: body
     };
     return requestWithAction(config, getRecommandArticles);
 }

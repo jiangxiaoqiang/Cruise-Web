@@ -6,7 +6,6 @@ import './Share.css';
 import DOMPurify from 'dompurify';
 import pic from '../../../resource/img/logo192.png';
 
-
 class Share extends Component{
 
   constructor(props) {
