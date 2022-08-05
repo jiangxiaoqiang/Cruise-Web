@@ -7,6 +7,9 @@ const ArticleReducer = (state=[], action) => {
         case "GET_RECOMMAND_ARTICLES":
             state = action.article;
             break;
+        case "GET_OFFICIAL_ARTICLES":
+            state = action.article;
+            break;
         default:
             break;
     }

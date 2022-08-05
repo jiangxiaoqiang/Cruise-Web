@@ -8,24 +8,13 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import About from '../about/About';
 
 const { TabPane } = Tabs;
-const onChange = (key: string) => {
-  if(key === '1'){
-    let params = {
-      pageSize : 20,
-      pageNum: 1
-    };
-    articleService.getRecommandArticlesImpl(params);
-  }
-  if(key === '2'){
-    articleService.getOriginalArticlesImpl();
-  }
-};
 
 const Index: React.FC = (props) => {
 
   const [pageNum, setPageNum] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [offset, setOffset] = useState();
+  const [tabKey, setTabKey] = useState("1");
   const [localArticle, setLocalArticle] = useState(new Map<number, any>());
 
   let articles = props.article;
@@ -37,6 +26,28 @@ const Index: React.FC = (props) => {
     };
     articleService.getRecommandArticlesImpl(params);
   }, []);
+
+  const onChange = (key: string) => {
+    setLocalArticle(new Map());
+    if(key === '1'){
+      let params = {
+        pageSize : 20,
+        pageNum: 1
+      };
+      articleService.getRecommandArticlesImpl(params).then((result) => {
+        setTabKey("1");
+      });
+    }
+    if(key === '2'){
+      let params = {
+        pageSize : 20,
+        pageNum: 1
+      };
+      articleService.getOfficialArticlesImpl(params).then((result) => {
+        setTabKey("2");
+      });
+    }
+  };
 
   const renderArticles = () => {
     var array: API.ArticleListItem[] = articles?articles.list:[];
@@ -55,7 +66,6 @@ const Index: React.FC = (props) => {
       });
     }
     if(elements && elements.size > 0){
-      debugger;
       setLocalArticle(new Map([...localArticle].concat([...elements])));
     }
   }
@@ -73,9 +83,16 @@ const Index: React.FC = (props) => {
       pageSize: pageSize,
       offset: Math.max(...offset)
     };
-    articleService.getRecommandArticlesImpl(params).then(()=>{
-      setPageNum(newPageNum);
-    });
+    if(tabKey === "1"){
+      articleService.getRecommandArticlesImpl(params).then(()=>{
+        setPageNum(newPageNum);
+      });
+    }
+    if(tabKey === "2"){
+      articleService.getOfficialArticlesImpl(params).then(()=>{
+        setPageNum(newPageNum);
+      });
+    }
   }
 
   const refresh = () => {
@@ -83,6 +100,33 @@ const Index: React.FC = (props) => {
   }
 
   let items: JSX.Element[] = Array.from(localArticle.values());
+
+  const renderList = (items: JSX.Element[]) => {
+    if(items.length == 0){
+      return (<div>无内容</div>);
+    }
+    return (<InfiniteScroll
+      dataLength={localArticle.size} //This is important field to render the next data
+      next={fetchData}
+      hasMore={true}
+      loader={<h4>Loading...</h4>}
+      endMessage={
+        <p style={{textAlign: 'center'}}>
+          <b>Yay! You have seen it all</b>
+        </p>
+      }
+      // below props only if you need pull down functionality
+      refreshFunction={refresh}
+      pullDownToRefresh
+      pullDownToRefreshContent={
+        <h3 style={{textAlign: 'center'}}>↓ Pull down to refresh</h3>
+      }
+      releaseToRefreshContent={
+        <h3 style={{textAlign: 'center'}}>↑ Release to refresh</h3>
+      }>
+      {items}
+    </InfiniteScroll>);
+  }
   
   return (
     <div>
@@ -113,9 +157,7 @@ const Index: React.FC = (props) => {
               </InfiniteScroll> 
             </TabPane>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>权威资讯</span>} key="2">
-              <div>
-                <About></About>
-              </div>
+              {renderList(items)}
             </TabPane>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>关于Cruise</span>} key="3">
               <div>

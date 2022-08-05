@@ -3,7 +3,7 @@
  */
 
 import { requestWithAction } from '../common/XHRClient';
-import { getArticle,getRecommandArticles } from "../action/ArticleAction";
+import { getArticle,getRecommandArticles,getOfficialArticles } from "../action/ArticleAction";
 
 export function getArticleImpl(id) {
     const config = {
@@ -22,6 +22,17 @@ export function getRecommandArticlesImpl(params) {
         data: body
     };
     return requestWithAction(config, getRecommandArticles);
+}
+
+export function getOfficialArticlesImpl(params) {
+    let body = JSON.stringify(params);
+    const config = {
+        method: 'post',
+        url: '/post/article/officialstories',
+        headers: {'Content-Type': 'application/json'},
+        data: body
+    };
+    return requestWithAction(config, getOfficialArticles);
 }
 
 export function getOriginalArticlesImpl() {
