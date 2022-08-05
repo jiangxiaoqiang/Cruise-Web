@@ -25,3 +25,10 @@ export function getOriginalArticles(article) {
       article: article
   };
 }
+
+export function clearArticles() {
+  return {
+      type: "CLEAR_ARTICLES",
+      article: []
+  };
+}

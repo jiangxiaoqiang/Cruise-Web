@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Divider, Row, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import './Index.css';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import * as articleService  from '../../service/ArticleService';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import About from '../about/About';
+import { useSelector } from 'react-redux'
+import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles } from '../../action/ArticleAction';
+import store from "../../store";
 
 const { TabPane } = Tabs;
 
@@ -14,10 +17,10 @@ const Index: React.FC = (props) => {
   const [pageNum, setPageNum] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [offset, setOffset] = useState();
-  const [tabKey, setTabKey] = useState("1");
-  const [localArticle, setLocalArticle] = useState(new Map<number, any>());
+  const [tabKey, setTabKey] = useState("-1");
 
-  let articles = props.article;
+  const [localArticle, setLocalArticle] = useState(new Map<number, any>());
+  let articles = useSelector((state) => state.article);
 
   React.useEffect(() => {
     let params = {
@@ -27,8 +30,15 @@ const Index: React.FC = (props) => {
     articleService.getRecommandArticlesImpl(params);
   }, []);
 
+  useEffect(() => {
+    
+    if(localArticle.size === 0 && tabKey !== "-1") {
+      console.log("dddd");
+    }
+  }, [localArticle])
+
   const onChange = (key: string) => {
-    setLocalArticle(new Map());
+    store.dispatch(clearArticles());
     if(key === '1'){
       let params = {
         pageSize : 20,
@@ -49,11 +59,10 @@ const Index: React.FC = (props) => {
     }
   };
 
-  const renderArticles = () => {
-    var array: API.ArticleListItem[] = articles?articles.list:[];
+  const renderArticles = (articleArray: API.ArticleListItem[]) => {
     var elements = new Map();
-    if(array && array.length > 0) {
-    array.forEach(article => {
+    if(articleArray && articleArray.length > 0) {
+      articleArray.forEach(article => {
       if(!localArticle.has(article.id)) {
         var articleDom: JSX.Element = (<div key={article.id}>
           <div style={{fontSize:15,fontWeight: 'bold'}}>
@@ -70,9 +79,13 @@ const Index: React.FC = (props) => {
     }
   }
 
-  var array: API.ArticleListItem[] = articles?articles.list:[];
-  if(array){
-    renderArticles();
+  var arrayArticles: API.ArticleListItem[] = articles&&articles.article?articles.article.list:[];
+  if(arrayArticles){
+    renderArticles(arrayArticles);
+  }else{
+    if(localArticle.size> 0){
+      setLocalArticle(new Map<number, any>());
+    }
   }
   
   const fetchData = () => {
@@ -100,6 +113,10 @@ const Index: React.FC = (props) => {
   }
 
   let items: JSX.Element[] = Array.from(localArticle.values());
+
+  if(items.length > 0){
+    // debugger
+  }
 
   const renderList = (items: JSX.Element[]) => {
     if(items.length == 0){
@@ -180,6 +197,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getArticle: (article) => {
       dispatch(getArticle(article))
+    },
+    getRecommandArticles: (article) => {
+      dispatch(getRecommandArticles(article))
+    },
+    getOfficialArticles: (article) => {
+      dispatch(getOfficialArticles(article))
     }
   };
 };

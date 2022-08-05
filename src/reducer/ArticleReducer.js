@@ -1,15 +1,30 @@
 
-const ArticleReducer = (state=[], action) => {
+const initState = {
+    article: {}
+};
+
+const ArticleReducer = (state=initState, action) => {
     switch (action.type) {
         case "GET_ARTICLE":
             state = action.article;
             break;
         case "GET_RECOMMAND_ARTICLES":
-            state = action.article;
-            break;
+            debugger
+            return {
+                ...state,
+                article: action.article
+            };
         case "GET_OFFICIAL_ARTICLES":
-            state = action.article;
-            break;
+            debugger
+            return {
+                ...state,
+                article: action.article
+            };
+        case "CLEAR_ARTICLES":
+            return {
+                ...state,
+                article: {}
+            }
         default:
             break;
     }
