@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Divider, Row, Tabs } from 'antd';
+import { Col, Divider, Row, Spin, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import './Index.css';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -121,13 +121,13 @@ const Index: React.FC = (props) => {
 
   const renderList = (items: JSX.Element[]) => {
     if(items.length == 0){
-      return (<div>无内容</div>);
+      return (<div><Spin /></div>);
     }
     return (<InfiniteScroll
       dataLength={localArticle.size} 
       next={fetchMoreData}
       hasMore={true}
-      loader={<h4>Loading...</h4>}
+      loader={<h4><Spin /></h4>}
       endMessage={
         <p style={{textAlign: 'center'}}>
           <b>Yay! You have seen it all</b>
@@ -156,7 +156,7 @@ const Index: React.FC = (props) => {
                 dataLength={localArticle.size} //This is important field to render the next data
                 next={fetchMoreData}
                 hasMore={true}
-                loader={<h4>Loading...</h4>}
+                loader={<h4><Spin /></h4>}
                 endMessage={
                   <p style={{textAlign: 'center'}}>
                     <b>Yay! You have seen it all</b>
