@@ -9,6 +9,7 @@ import About from '../about/About';
 import { useSelector } from 'react-redux'
 import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles } from '../../action/ArticleAction';
 import store from "../../store";
+import TimeUtils from "js-wheel/dist/src/utils/time/time";
 
 const { TabPane } = Tabs;
 
@@ -62,9 +63,16 @@ const Index: React.FC = (props) => {
       articleArray.forEach(article => {
       if(!localArticle.has(article.id)) {
         var articleDom: JSX.Element = (<div key={article.id}>
-          <div style={{fontSize:15,fontWeight: 'bold'}}>
-            <a href={article.link} target="_blank">{article.title}</a>
-          </div>
+          <Row>
+            <Col>
+              <div style={{fontSize:15,fontWeight: 'bold'}}>
+                <a href={article.link} target="_blank">{article.title}</a>
+              </div>
+            </Col>
+            <Col>
+              <div style={{verticalAlign: 'middle',color:'#789',marginLeft:16,fontSize:13,fontWeight: '500'}}>{TimeUtils.getPrevFormattedTime(parseInt(article.createdTime))}</div>
+            </Col>
+          </Row>
           <Divider></Divider>
           </div>);
           elements.set(article.id, articleDom);

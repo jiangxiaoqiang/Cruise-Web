@@ -127,11 +127,12 @@ declare namespace API {
     id: number;
     content: string;
     title: string;
-    created_time: number;
+    createdTime: string;
     channel_name: string;
     pub_time: string;
     sub_url: string;
     link: string;
+    pubTime: number;
   };
 
   type TrendListItem = {
