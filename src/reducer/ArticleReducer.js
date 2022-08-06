@@ -9,13 +9,11 @@ const ArticleReducer = (state=initState, action) => {
             state = action.article;
             break;
         case "GET_RECOMMAND_ARTICLES":
-            debugger
             return {
                 ...state,
                 article: action.article
             };
         case "GET_OFFICIAL_ARTICLES":
-            debugger
             return {
                 ...state,
                 article: action.article

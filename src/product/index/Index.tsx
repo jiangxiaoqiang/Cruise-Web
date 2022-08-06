@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Divider, Row, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import './Index.css';
-import { connect, useDispatch } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
 import * as articleService  from '../../service/ArticleService';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import About from '../about/About';
@@ -20,7 +20,7 @@ const Index: React.FC = (props) => {
   const [tabKey, setTabKey] = useState("-1");
 
   const [localArticle, setLocalArticle] = useState(new Map<number, any>());
-  let articles = useSelector((state) => state.article);
+  let articles = useSelector((state: RootStateOrAny) => state.article);
 
   React.useEffect(() => {
     let params = {
@@ -30,15 +30,12 @@ const Index: React.FC = (props) => {
     articleService.getRecommandArticlesImpl(params);
   }, []);
 
-  useEffect(() => {
-    
-    if(localArticle.size === 0 && tabKey !== "-1") {
-      console.log("dddd");
-    }
-  }, [localArticle])
-
   const onChange = (key: string) => {
     store.dispatch(clearArticles());
+    fetchNewestArticles(key);
+  };
+
+  const fetchNewestArticles = (key: string) => {
     if(key === '1'){
       let params = {
         pageSize : 20,
@@ -57,7 +54,7 @@ const Index: React.FC = (props) => {
         setTabKey("2");
       });
     }
-  };
+  }
 
   const renderArticles = (articleArray: API.ArticleListItem[]) => {
     var elements = new Map();
@@ -88,7 +85,7 @@ const Index: React.FC = (props) => {
     }
   }
   
-  const fetchData = () => {
+  const fetchMoreData = () => {
     let newPageNum = pageNum + 1;
     let offset: number[] = Array.from(localArticle.keys())
     let params = {
@@ -109,22 +106,18 @@ const Index: React.FC = (props) => {
   }
 
   const refresh = () => {
-    
+    fetchNewestArticles(tabKey);
   }
 
   let items: JSX.Element[] = Array.from(localArticle.values());
-
-  if(items.length > 0){
-    // debugger
-  }
 
   const renderList = (items: JSX.Element[]) => {
     if(items.length == 0){
       return (<div>无内容</div>);
     }
     return (<InfiniteScroll
-      dataLength={localArticle.size} //This is important field to render the next data
-      next={fetchData}
+      dataLength={localArticle.size} 
+      next={fetchMoreData}
       hasMore={true}
       loader={<h4>Loading...</h4>}
       endMessage={
@@ -153,7 +146,7 @@ const Index: React.FC = (props) => {
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>编辑推荐</span>} key="1">
               <InfiniteScroll
                 dataLength={localArticle.size} //This is important field to render the next data
-                next={fetchData}
+                next={fetchMoreData}
                 hasMore={true}
                 loader={<h4>Loading...</h4>}
                 endMessage={
