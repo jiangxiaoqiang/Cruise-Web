@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Col, Divider, Row, Spin, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import './Index.css';
@@ -37,20 +37,18 @@ const Index: React.FC = (props) => {
   };
 
   const fetchNewestArticles = (key: string) => {
+    let offset: number[] = Array.from(localArticle.keys());
+    let params = {
+      pageSize : 20,
+      pageNum: 1,
+      offset: Math.max(...offset)
+    };
     if(key === '1'){
-      let params = {
-        pageSize : 20,
-        pageNum: 1
-      };
       articleService.getRecommandArticlesImpl(params).then((result) => {
         setTabKey("1");
       });
     }
     if(key === '2'){
-      let params = {
-        pageSize : 20,
-        pageNum: 1
-      };
       articleService.getOfficialArticlesImpl(params).then((result) => {
         setTabKey("2");
       });
@@ -95,7 +93,7 @@ const Index: React.FC = (props) => {
   
   const fetchMoreData = () => {
     let newPageNum = pageNum + 1;
-    let offset: number[] = Array.from(localArticle.keys())
+    let offset: number[] = Array.from(localArticle.keys());
     let params = {
       pageNum: newPageNum,
       pageSize: pageSize,
@@ -113,7 +111,7 @@ const Index: React.FC = (props) => {
     }
   }
 
-  const refresh = () => {
+  const refreshArticles = () => {
     fetchNewestArticles(tabKey);
   }
 
@@ -134,7 +132,7 @@ const Index: React.FC = (props) => {
         </p>
       }
       // below props only if you need pull down functionality
-      refreshFunction={refresh}
+      refreshFunction={refreshArticles}
       pullDownToRefresh
       pullDownToRefreshContent={
         <h3 style={{textAlign: 'center'}}>↓ Pull down to refresh</h3>
@@ -152,27 +150,7 @@ const Index: React.FC = (props) => {
         <Col span={10}>
           <Tabs defaultActiveKey="1" onChange={onChange} size="large" style={{ marginTop: 10 }}>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>编辑推荐</span>} key="1">
-              <InfiniteScroll
-                dataLength={localArticle.size} //This is important field to render the next data
-                next={fetchMoreData}
-                hasMore={true}
-                loader={<h4><Spin /></h4>}
-                endMessage={
-                  <p style={{textAlign: 'center'}}>
-                    <b>Yay! You have seen it all</b>
-                  </p>
-                }
-                // below props only if you need pull down functionality
-                refreshFunction={refresh}
-                pullDownToRefresh
-                pullDownToRefreshContent={
-                  <h3 style={{textAlign: 'center'}}>↓ Pull down to refresh</h3>
-                }
-                releaseToRefreshContent={
-                  <h3 style={{textAlign: 'center'}}>↑ Release to refresh</h3>
-                }>
-                {items}
-              </InfiniteScroll> 
+              {renderList(items)}
             </TabPane>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>权威资讯</span>} key="2">
               {renderList(items)}
