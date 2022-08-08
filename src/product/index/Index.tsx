@@ -18,7 +18,7 @@ const Index: React.FC = (props) => {
   const [pageNum, setPageNum] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [offset, setOffset] = useState();
-  const [tabKey, setTabKey] = useState("-1");
+  const [tabKey, setTabKey] = useState("1");
 
   const [localArticle, setLocalArticle] = useState(new Map<number, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
