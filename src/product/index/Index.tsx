@@ -17,7 +17,7 @@ const Index: React.FC = (props) => {
 
   const [pageNum, setPageNum] = useState(1);
   const [pageSize, setPageSize] = useState(20);
-  const [offset, setOffset] = useState();
+  const [offset, setOffset] = useState(new Map<string, number>());
   const [tabKey, setTabKey] = useState("1");
 
   const [localArticle, setLocalArticle] = useState(new Map<number, any>());
@@ -28,7 +28,18 @@ const Index: React.FC = (props) => {
       pageSize : pageSize,
       pageNum: 1
     };
-    articleService.getRecommandArticlesImpl(params);
+    articleService.getRecommandArticlesImpl(params).then((data) => {
+      setTabKey("1");
+      if(offset.get('recommand')){
+        return;
+      }
+    var ids = data.result.list.map((item: { id: number; }) => item.id);
+    debugger
+    var newOffset = new Map();
+    var maxId = Math.max(...ids);
+    newOffset.set('recommand',maxId);
+    setOffset(new Map([...offset].concat([...newOffset])))
+    });
   }, []);
 
   const onChange = (key: string) => {
@@ -37,20 +48,41 @@ const Index: React.FC = (props) => {
   };
 
   const fetchNewestArticles = (key: string) => {
-    let offset: number[] = Array.from(localArticle.keys());
-    let params = {
-      pageSize : 20,
-      pageNum: 1,
-      offset: Math.max(...offset)
-    };
     if(key === '1'){
-      articleService.getRecommandArticlesImpl(params).then((result) => {
+      let params = {
+        pageSize : 20,
+        pageNum: 1,
+        offset: offset.get('recommand')
+      };
+      articleService.getRecommandArticlesImpl(params).then((data) => {
         setTabKey("1");
+        if(offset.get('recommand')){
+          return;
+        }
+        var ids = data.result.list.map((item: { id: number; }) => item.id);
+        debugger
+        var newOffset = new Map();
+        var maxId = Math.max(...ids);
+        newOffset.set('recommand',maxId);
+        setOffset(new Map([...offset].concat([...newOffset])))
       });
     }
     if(key === '2'){
-      articleService.getOfficialArticlesImpl(params).then((result) => {
+      let params = {
+        pageSize : 20,
+        pageNum: 1,
+        offset: offset.get('official')
+      };
+      articleService.getOfficialArticlesImpl(params).then((data) => {
         setTabKey("2");
+        if(offset.get('official')){
+          return;
+        }
+        var ids = data.result.list.map((item: { id: number; }) => item.id);
+        var newOffset = new Map();
+        var maxId = Math.max(...ids);
+        newOffset.set('official',maxId);
+        setOffset(new Map([...offset].concat([...newOffset])))
       });
     }
   }
@@ -112,6 +144,8 @@ const Index: React.FC = (props) => {
   }
 
   const refreshArticles = () => {
+    debugger
+    store.dispatch(clearArticles());
     fetchNewestArticles(tabKey);
   }
 
@@ -131,9 +165,8 @@ const Index: React.FC = (props) => {
           <b>Yay! You have seen it all</b>
         </p>
       }
-      // below props only if you need pull down functionality
       refreshFunction={refreshArticles}
-      pullDownToRefresh
+      pullDownToRefresh={true}
       pullDownToRefreshContent={
         <h3 style={{textAlign: 'center'}}>↓ Pull down to refresh</h3>
       }

@@ -20,6 +20,7 @@ export function requestWithAction(config, action) {
     response => {
       const data = response.data.result;
       store.dispatch(action(data));
+      return response.data;
     }
   ).catch(
     error => {
