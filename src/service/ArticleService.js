@@ -25,22 +25,22 @@ export function getRecommandArticlesImpl(params) {
 }
 
 export function getOfficialArticlesImpl(params) {
-    let body = JSON.stringify(params);
     const config = {
-        method: 'post',
+        method: 'get',
         url: '/post/article/officialstories',
         headers: {'Content-Type': 'application/json'},
-        data: body
+        params: params
     };
     return requestWithAction(config, getOfficialArticles);
 }
 
-export function getOriginalArticlesImpl() {
+export function getOriginalArticlesImpl(params) {
+    let body = JSON.stringify(params);
     const config = {
         method: 'post',
         url: '/post/article/originalstories',
         headers: {'Content-Type': 'application/json'},
-        data: JSON.stringify({})
+        data: body
     };
     return requestWithAction(config, getRecommandArticles);
 }

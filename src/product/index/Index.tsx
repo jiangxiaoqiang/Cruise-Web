@@ -34,7 +34,6 @@ const Index: React.FC = (props) => {
         return;
       }
     var ids = data.result.list.map((item: { id: number; }) => item.id);
-    debugger
     var newOffset = new Map();
     var maxId = Math.max(...ids);
     newOffset.set('recommand',maxId);
@@ -60,7 +59,6 @@ const Index: React.FC = (props) => {
           return;
         }
         var ids = data.result.list.map((item: { id: number; }) => item.id);
-        debugger
         var newOffset = new Map();
         var maxId = Math.max(...ids);
         newOffset.set('recommand',maxId);
@@ -82,6 +80,24 @@ const Index: React.FC = (props) => {
         var newOffset = new Map();
         var maxId = Math.max(...ids);
         newOffset.set('official',maxId);
+        setOffset(new Map([...offset].concat([...newOffset])))
+      });
+    }
+    if(key === '3'){
+      let params = {
+        pageSize : 20,
+        pageNum: 1,
+        offset: offset.get('original')
+      };
+      articleService.getOriginalArticlesImpl(params).then((data) => {
+        setTabKey("3");
+        if(offset.get('original')){
+          return;
+        }
+        var ids = data.result.list.map((item: { id: number; }) => item.id);
+        var newOffset = new Map();
+        var maxId = Math.max(...ids);
+        newOffset.set('original',maxId);
         setOffset(new Map([...offset].concat([...newOffset])))
       });
     }
@@ -144,7 +160,6 @@ const Index: React.FC = (props) => {
   }
 
   const refreshArticles = () => {
-    debugger
     store.dispatch(clearArticles());
     fetchNewestArticles(tabKey);
   }
@@ -188,7 +203,10 @@ const Index: React.FC = (props) => {
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>权威资讯</span>} key="2">
               {renderList(items)}
             </TabPane>
-            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>关于Cruise</span>} key="3">
+            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>原始资讯</span>} key="3">
+              {renderList(items)}
+            </TabPane>
+            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>关于Cruise</span>} key="4">
               <div>
                 <About></About>
               </div>
