@@ -157,6 +157,11 @@ const Index: React.FC = (props) => {
         setPageNum(newPageNum);
       });
     }
+    if(tabKey === "3"){
+      articleService.getOriginalArticlesImpl(params).then(()=>{
+        setPageNum(newPageNum);
+      });
+    }
   }
 
   const refreshArticles = () => {
