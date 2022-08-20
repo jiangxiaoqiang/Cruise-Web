@@ -14,12 +14,11 @@ export function getArticleImpl(id) {
 }
 
 export function getRecommandArticlesImpl(params) {
-    let body = JSON.stringify(params);
     const config = {
-        method: 'post',
+        method: 'get',
         url: '/post/article/newstories',
         headers: {'Content-Type': 'application/json'},
-        data: body
+        params: params
     };
     return requestWithAction(config, getRecommandArticles);
 }
@@ -35,12 +34,11 @@ export function getOfficialArticlesImpl(params) {
 }
 
 export function getOriginalArticlesImpl(params) {
-    let body = JSON.stringify(params);
     const config = {
-        method: 'post',
+        method: 'get',
         url: '/post/article/originalstories',
         headers: {'Content-Type': 'application/json'},
-        data: body
+        params: params
     };
     return requestWithAction(config, getRecommandArticles);
 }

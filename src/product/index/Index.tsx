@@ -33,11 +33,13 @@ const Index: React.FC = (props) => {
       if(offset.get('recommand')){
         return;
       }
-    var ids = data.result.list.map((item: { id: number; }) => item.id);
-    var newOffset = new Map();
-    var maxId = Math.max(...ids);
-    newOffset.set('recommand',maxId);
-    setOffset(new Map([...offset].concat([...newOffset])))
+      if(data && data.result){
+        var ids = data.result.list.map((item: { id: number; }) => item.id);
+        var newOffset = new Map();
+        var maxId = Math.max(...ids);
+        newOffset.set('recommand',maxId);
+        setOffset(new Map([...offset].concat([...newOffset])))
+      }
     });
   }, []);
 
@@ -58,11 +60,13 @@ const Index: React.FC = (props) => {
         if(offset.get('recommand')){
           return;
         }
-        var ids = data.result.list.map((item: { id: number; }) => item.id);
-        var newOffset = new Map();
-        var maxId = Math.max(...ids);
-        newOffset.set('recommand',maxId);
-        setOffset(new Map([...offset].concat([...newOffset])))
+        if(data && data.result){
+          var ids = data.result.list.map((item: { id: number; }) => item.id);
+          var newOffset = new Map();
+          var maxId = Math.max(...ids);
+          newOffset.set('recommand',maxId);
+          setOffset(new Map([...offset].concat([...newOffset])))
+        }
       });
     }
     if(key === '2'){
@@ -76,11 +80,13 @@ const Index: React.FC = (props) => {
         if(offset.get('official')){
           return;
         }
-        var ids = data.result.list.map((item: { id: number; }) => item.id);
-        var newOffset = new Map();
-        var maxId = Math.max(...ids);
-        newOffset.set('official',maxId);
-        setOffset(new Map([...offset].concat([...newOffset])))
+        if(data && data.result){
+          var ids = data.result.list.map((item: { id: number; }) => item.id);
+          var newOffset = new Map();
+          var maxId = Math.max(...ids);
+          newOffset.set('official',maxId);
+          setOffset(new Map([...offset].concat([...newOffset])))
+        }
       });
     }
     if(key === '3'){
@@ -94,11 +100,13 @@ const Index: React.FC = (props) => {
         if(offset.get('original')){
           return;
         }
-        var ids = data.result.list.map((item: { id: number; }) => item.id);
-        var newOffset = new Map();
-        var maxId = Math.max(...ids);
-        newOffset.set('original',maxId);
-        setOffset(new Map([...offset].concat([...newOffset])))
+        if(data && data.result) {
+          var ids = data.result.list.map((item: { id: number; }) => item.id);
+          var newOffset = new Map();
+          var maxId = Math.max(...ids);
+          newOffset.set('original',maxId);
+          setOffset(new Map([...offset].concat([...newOffset])))
+        }
       });
     }
   }
