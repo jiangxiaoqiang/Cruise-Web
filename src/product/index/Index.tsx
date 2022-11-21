@@ -16,11 +16,10 @@ const { TabPane } = Tabs;
 const Index: React.FC = (props) => {
 
   const [pageNum, setPageNum] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize] = useState(20);
   const [offset, setOffset] = useState(new Map<string, number>());
   const [tabKey, setTabKey] = useState("1");
-
-  const [localArticle, setLocalArticle] = useState(new Map<number, any>());
+  const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
 
   React.useEffect(() => {
@@ -115,7 +114,7 @@ const Index: React.FC = (props) => {
     var elements = new Map();
     if(articleArray && articleArray.length > 0) {
       articleArray.forEach(article => {
-      if(!localArticle.has(article.id)) {
+      if(!localArticle.has(article.title)) {
         var articleDom: JSX.Element = (<div key={article.id}>
           <Row>
             <Col>
@@ -129,7 +128,7 @@ const Index: React.FC = (props) => {
           </Row>
           <Divider></Divider>
           </div>);
-          elements.set(article.id, articleDom);
+          elements.set(article.title, articleDom);
         }
       });
     }
@@ -143,7 +142,7 @@ const Index: React.FC = (props) => {
     renderArticles(arrayArticles);
   }else{
     if(localArticle.size> 0){
-      setLocalArticle(new Map<number, any>());
+      setLocalArticle(new Map<string, any>());
     }
   }
   
