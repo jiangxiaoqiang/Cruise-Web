@@ -145,10 +145,20 @@ const Index: React.FC = (props) => {
       setLocalArticle(new Map<string, any>());
     }
   }
-  
+
+  const getArtcleKeys = (articles:any[]) =>{
+    let keys:number[] = [];
+    articles.forEach(article =>{
+      let key = article.key;
+      keys.push(parseInt(key));
+    });
+    return keys;
+  }
+
   const fetchMoreData = () => {
     let newPageNum = pageNum + 1;
-    let offset: number[] = Array.from(localArticle.keys());
+    let articles =Array.from(localArticle.values()); 
+    let offset: number[] = getArtcleKeys(articles);
     let params = {
       pageNum: newPageNum,
       pageSize: pageSize,
