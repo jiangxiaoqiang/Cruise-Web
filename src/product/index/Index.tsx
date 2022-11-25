@@ -217,7 +217,7 @@ const Index: React.FC = (props) => {
   return (
     <div>
       <Row justify="center">
-        <Col span={10}>
+        <Col span={12}>
           <Tabs defaultActiveKey="1" onChange={onChange} size="large" style={{ marginTop: 10 }}>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>编辑推荐</span>} key="1">
               {renderList(items)}
@@ -235,8 +235,7 @@ const Index: React.FC = (props) => {
             </TabPane>
           </Tabs>
         </Col>
-      </Row>
-      
+      </Row> 
     </div>
   );
 }
