@@ -45,3 +45,9 @@
     transform: rotate(360deg);
   }
 }
+
+/** 网站变灰，重大悼念活动时使用 **/
+html {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+  -webkit-filter: grayscale(100%);
+}
