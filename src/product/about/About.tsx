@@ -14,9 +14,6 @@ const About: React.FC = (props) => {
         <li>
           <div>邮箱：jiangtingqiang@gmail.com</div>
         </li>
-        <li>
-          <div><img style={{ height:'380px',width:'360px' }} src="/about/contact/WechatIMG260.jpeg"></img></div>
-        </li>
       </ul>
       </Paragraph>
     </Typography>
