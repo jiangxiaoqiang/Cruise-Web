@@ -120,7 +120,7 @@ const Index: React.FC = (props) => {
           <Row>
             <Col>
               <div style={{fontSize:15,fontWeight: 'bold'}}>
-                <a href={article.link} target="_blank">{article.title}</a>
+                <a href={article.link} target="_blank" rel="noreferrer">{article.title}</a>
               </div>
             </Col>
             <Col>
@@ -190,7 +190,7 @@ const Index: React.FC = (props) => {
   let items: JSX.Element[] = Array.from(localArticle.values());
 
   const renderList = (items: JSX.Element[]) => {
-    if(items.length == 0){
+    if(items.length === 0){
       return (<div><Spin /></div>);
     }
     return (<InfiniteScroll
@@ -235,9 +235,9 @@ const Index: React.FC = (props) => {
               </div>
             </TabPane>
           </Tabs>
-          <Footer></Footer>
         </Col>
       </Row> 
+      <Footer></Footer>
     </div>
   );
 }

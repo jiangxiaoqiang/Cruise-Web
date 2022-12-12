@@ -2,12 +2,17 @@
   text-align: center;
 }
 
-.para {
-  
-}
-
 .content{
   font-size: 0.05rem;
+}
+
+.foot{
+  font-size: 0.3rem;
+}
+
+.cruisediv{
+  height: 10px;
+  color: rgb(210, 14, 14);
 }
 
 .contact{
