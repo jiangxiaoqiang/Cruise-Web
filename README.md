@@ -38,6 +38,8 @@ macOS启动重启nginx:
 brew services start nginx
 # 重启nginx
 brew services restart nginx
+# 重新加载配置
+sudo /opt/homebrew/opt/nginx/bin/nginx -s reload
 ```
 
 启动nginx后访问：http://127.0.0.1:8084。

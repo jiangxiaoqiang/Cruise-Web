@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles } from '../../action/ArticleAction';
 import store from "../../store";
 import TimeUtils from "js-wheel/dist/src/utils/time/time";
+import Footer  from '../../component/footer/Footer';
 
 const { TabPane } = Tabs;
 
@@ -234,6 +235,7 @@ const Index: React.FC = (props) => {
               </div>
             </TabPane>
           </Tabs>
+          <Footer></Footer>
         </Col>
       </Row> 
     </div>

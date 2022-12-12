@@ -2,7 +2,7 @@ import { Button, Typography } from "antd";
 import React from "react";
 const { Paragraph} = Typography;
 
-const About: React.FC = (props) => {
+const Header: React.FC = (props) => {
   return (
     <Typography>
       <Paragraph>
@@ -13,4 +13,4 @@ const About: React.FC = (props) => {
   );
 }
 
-export default About;
+export default Header;
