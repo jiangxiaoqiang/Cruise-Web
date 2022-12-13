@@ -11,7 +11,7 @@ const Footer: React.FC = (props) => {
           <Row justify="center" align="middle">
             <Col>
               <div>© 2022 重庆红矮星科技有限公司</div>
-              <div>渝ICP备1700232号-6 <a href="mailto:jiangxiaoqiang@zqhaxkjyxgs.wecom.work">联系我们</a></div>
+              <div>渝ICP备2021003460号-1 <a href="mailto:jiangxiaoqiang@zqhaxkjyxgs.wecom.work">联系我们</a></div>
             </Col>
           </Row>
         </div>
