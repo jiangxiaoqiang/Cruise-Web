@@ -15,7 +15,7 @@ const Footer: React.FC = (props) => {
           </Row>
           <Row justify="center" align="middle">
             <Col>
-              <div>渝公安备xxxxx(审核中)</div>
+              <div><img src="./assets/footer/gwab.webp"></img> 渝公网安备 50022502000614 号</div>
             </Col>
           </Row>
         </div>
