@@ -49,6 +49,7 @@ const Index: React.FC = (props) => {
   };
 
   const fetchNewestArticles = (key: string) => {
+    setPageNum(1);
     if(key === '1'){
       let params = {
         pageSize : 20,
