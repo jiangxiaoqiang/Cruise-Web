@@ -156,7 +156,12 @@ const Index: React.FC = (props) => {
     return keys;
   }
 
-  const fetchMoreData = () => {
+  const fetchMoreData = (currentTabKey: string) => {
+    if(currentTabKey !== tabKey){
+      // prevent trigger the fetch more with the unactive infinite scroll
+      // https://stackoverflow.com/questions/54711042/how-to-prevent-infinite-scroll-from-loading-pages-when-the-tab-is-not-active
+      return;
+    }
     let newPageNum = pageNum + 1;
     let articles =Array.from(localArticle.values()); 
     let offset: number[] = getArtcleKeys(articles);
@@ -165,17 +170,17 @@ const Index: React.FC = (props) => {
       pageSize: pageSize,
       offset: Math.max(...offset)
     };
-    if(tabKey === "1"){
+    if(currentTabKey === "1"){
       articleService.getRecommandArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
     }
-    if(tabKey === "2"){
+    if(currentTabKey === "2"){
       articleService.getOfficialArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
     }
-    if(tabKey === "3"){
+    if(currentTabKey === "3"){
       articleService.getOriginalArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
@@ -189,13 +194,13 @@ const Index: React.FC = (props) => {
 
   let items: JSX.Element[] = Array.from(localArticle.values());
 
-  const renderList = (items: JSX.Element[]) => {
+  const renderList = (items: JSX.Element[], currentTabKey: string) => {
     if(items.length === 0){
       return (<div><Spin /></div>);
     }
     return (<InfiniteScroll
       dataLength={localArticle.size} 
-      next={fetchMoreData}
+      next={fetchMoreData.bind(this,currentTabKey)}
       hasMore={true}
       loader={<h4><Spin /></h4>}
       endMessage={
@@ -221,13 +226,13 @@ const Index: React.FC = (props) => {
         <Col span={12}>
           <Tabs defaultActiveKey="1" onChange={onChange} size="large" style={{ marginTop: 10 }}>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>编辑推荐</span>} key="1">
-              {renderList(items)}
+              {renderList(items,"1")}
             </TabPane>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>权威资讯</span>} key="2">
-              {renderList(items)}
+              {renderList(items,"2")}
             </TabPane>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>原始资讯</span>} key="3">
-              {renderList(items)}
+              {renderList(items,"3")}
             </TabPane>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>关于Cruise</span>} key="4">
               <div>
