@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Avatar, Button, Col, Divider, Row, Spin, Tabs } from 'antd';
-import 'antd/dist/antd.css';
+import { Avatar, Button, Col, Divider, Dropdown, Menu, Row, Space, Spin, Tabs } from 'antd';
+// import 'antd/dist/antd.css';
 import './Index.css';
+import type { MenuProps } from 'antd';
 import { connect, RootStateOrAny } from 'react-redux';
 import * as articleService  from '../../service/ArticleService';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -13,9 +14,15 @@ import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../component/footer/Footer';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import BaseMethods from 'js-wheel/dist/src/utils/data/BaseMethods';
 
 const { TabPane } = Tabs;
+
+const menuItems: MenuProps['items'] = [
+  {
+    label: <a href="https://www.antgroup.com">1st menu item</a>,
+    key: '0',
+  }
+];
 
 const Index: React.FC = (props) => {
 
@@ -28,6 +35,7 @@ const Index: React.FC = (props) => {
   let articles = useSelector((state: RootStateOrAny) => state.article);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
 
+  
 
   React.useEffect(() => {
     let params = {
@@ -125,10 +133,26 @@ const Index: React.FC = (props) => {
     }
   }
 
+  const handleLogout=()=>{
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('avatarUrl');
+    window.location.href="https://read.poemhub.top";
+  }
+
+  const menuItems = [
+    <Menu.Item key="1">Cruise Pro</Menu.Item>,
+    <Menu.Item key="2"><span onClick={handleLogout}>登出</span></Menu.Item>
+  ];
+
   const renderLogin=()=>{
     if(isLoggedIn){
       var avatarUrl = localStorage.getItem('avatarUrl');
-      return (<div><Avatar size={40} src={avatarUrl}></Avatar></div>);
+      return (<div>
+        <Dropdown overlay={<Menu>{menuItems}</Menu>} trigger={['click']}>
+          <Avatar size={40} src={avatarUrl} />
+        </Dropdown>
+        </div>);
     }
     const parsed = queryString.parse(location.search);
     console.log(parsed);
