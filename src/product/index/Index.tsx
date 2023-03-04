@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Col, Divider, Row, Spin, Tabs } from 'antd';
+import { Avatar, Button, Col, Divider, Row, Spin, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import './Index.css';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -11,6 +11,9 @@ import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles, l
 import store from "../../store";
 import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../component/footer/Footer';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
+import BaseMethods from 'js-wheel/dist/src/utils/data/BaseMethods';
 
 const { TabPane } = Tabs;
 
@@ -18,11 +21,13 @@ const Index: React.FC = (props) => {
 
   const [pageNum, setPageNum] = useState(1);
   const [pageSize] = useState(20);
+  const location = useLocation();
   const [offset, setOffset] = useState(new Map<string, number>());
   const [tabKey, setTabKey] = useState("1");
   const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
-  let redirectUrl = useSelector((state: RootStateOrAny) => state.redirectUrl);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
+
 
   React.useEffect(() => {
     let params = {
@@ -118,6 +123,22 @@ const Index: React.FC = (props) => {
         }
       });
     }
+  }
+
+  const renderLogin=()=>{
+    if(isLoggedIn){
+      var avatarUrl = localStorage.getItem('avatarUrl');
+      return (<div><Avatar size={40} src={avatarUrl}></Avatar></div>);
+    }
+    const parsed = queryString.parse(location.search);
+    console.log(parsed);
+    if(parsed != null && parsed.access_token){
+      localStorage.setItem('isLoggedIn', true);
+      localStorage.setItem('accessToken', parsed.access_token);
+      localStorage.setItem('avatarUrl',parsed.avatar_url);
+      window.location.href="https://read.poemhub.top";
+    }
+    return (<div><Button onClick={userLogin}>登录</Button></div>);
   }
 
   const renderArticles = (articleArray: API.ArticleListItem[]) => {
@@ -251,7 +272,7 @@ const Index: React.FC = (props) => {
           </Tabs>
         </Col>
         <Col>
-          <Button onClick={userLogin}>登录</Button>
+          {renderLogin()}
         </Col>
       </Row> 
       <Footer></Footer>
