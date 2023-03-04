@@ -22,7 +22,12 @@ const ArticleReducer = (state=initState, action) => {
             return {
                 ...state,
                 article: {}
-            }
+            };
+        case "USER_LOGIN":
+            return {
+                ...state,
+                redirectUrl: action.redirectUrl
+            };
         default:
             break;
     }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Col, Divider, Row, Spin, Tabs } from 'antd';
+import { Button, Col, Divider, Row, Spin, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import './Index.css';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -7,7 +7,7 @@ import * as articleService  from '../../service/ArticleService';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import About from '../about/About';
 import { useSelector } from 'react-redux'
-import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles } from '../../action/ArticleAction';
+import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles, login } from '../../action/ArticleAction';
 import store from "../../store";
 import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../component/footer/Footer';
@@ -22,6 +22,7 @@ const Index: React.FC = (props) => {
   const [tabKey, setTabKey] = useState("1");
   const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
+  let redirectUrl = useSelector((state: RootStateOrAny) => state.redirectUrl);
 
   React.useEffect(() => {
     let params = {
@@ -47,6 +48,13 @@ const Index: React.FC = (props) => {
     store.dispatch(clearArticles());
     fetchNewestArticles(key);
   };
+
+  const userLogin =() => {
+    articleService.userLoginImpl({}).then(data => {
+      window.location.href=data.result;
+    });
+    
+  }
 
   const fetchNewestArticles = (key: string) => {
     setPageNum(1);
@@ -242,6 +250,9 @@ const Index: React.FC = (props) => {
             </TabPane>
           </Tabs>
         </Col>
+        <Col>
+          <Button onClick={userLogin}>登录</Button>
+        </Col>
       </Row> 
       <Footer></Footer>
     </div>
@@ -262,6 +273,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getOfficialArticles: (article) => {
       dispatch(getOfficialArticles(article))
+    },
+    login: (redirectUrl) => {
+      dispatch(login(redirectUrl))
     }
   };
 };

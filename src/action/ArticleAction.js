@@ -32,3 +32,10 @@ export function clearArticles() {
       article: []
   };
 }
+
+export function login(url) {
+  return {
+      type: "USER_LOGIN",
+      redirectUrl: url
+  };
+}

@@ -3,7 +3,7 @@
  */
 
 import { requestWithAction } from '../common/XHRClient';
-import { getArticle,getRecommandArticles,getOfficialArticles } from "../action/ArticleAction";
+import { getArticle,getRecommandArticles,getOfficialArticles, login } from "../action/ArticleAction";
 
 export function getArticleImpl(id) {
     const config = {
@@ -41,4 +41,14 @@ export function getOriginalArticlesImpl(params) {
         params: params
     };
     return requestWithAction(config, getRecommandArticles);
+}
+
+export function userLoginImpl(params) {
+    const config = {
+        method: 'get',
+        url: '/post/wechat/login/getQRCodeUrl',
+        headers: {'Content-Type': 'application/json'},
+        params: params
+    };
+    return requestWithAction(config, login);
 }
