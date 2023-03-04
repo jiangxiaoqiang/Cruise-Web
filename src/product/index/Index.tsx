@@ -14,6 +14,7 @@ import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../component/footer/Footer';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
+import Pay from '../pay/Pay';
 
 const { TabPane } = Tabs;
 
@@ -140,8 +141,12 @@ const Index: React.FC = (props) => {
     window.location.href="https://read.poemhub.top";
   }
 
+  const handleCruisePro=()=>{
+    setTabKey("5");
+  }
+
   const menuItems = [
-    <Menu.Item key="1">Cruise Pro</Menu.Item>,
+    <Menu.Item key="1"><span onClick={handleCruisePro}>Cruise Pro</span></Menu.Item>,
     <Menu.Item key="2"><span onClick={handleLogout}>登出</span></Menu.Item>
   ];
 
@@ -291,6 +296,11 @@ const Index: React.FC = (props) => {
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>关于Cruise</span>} key="4">
               <div>
                 <About></About>
+              </div>
+            </TabPane>
+            <TabPane tab={<span></span>} key="5">
+              <div>
+                <Pay></Pay>
               </div>
             </TabPane>
           </Tabs>
