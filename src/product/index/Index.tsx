@@ -64,7 +64,7 @@ const Index: React.FC = (props) => {
   };
 
   const userLogin =() => {
-    articleService.userLoginImpl({}).then(data => {
+    articleService.userLoginAlipayImpl({}).then(data => {
       window.location.href=data.result;
     });
     
@@ -153,11 +153,19 @@ const Index: React.FC = (props) => {
   const renderLogin=()=>{
     if(isLoggedIn){
       var avatarUrl = localStorage.getItem('avatarUrl');
-      return (<div>
-        <Dropdown overlay={<Menu>{menuItems}</Menu>} trigger={['click']}>
-          <Avatar size={40} src={avatarUrl} />
-        </Dropdown>
-        </div>);
+      if(avatarUrl){
+        return (<div>
+          <Dropdown overlay={<Menu>{menuItems}</Menu>} trigger={['click']}>
+            <Avatar size={40} src={avatarUrl} />
+          </Dropdown>
+          </div>);
+      }else{
+        return (<div>
+          <Dropdown overlay={<Menu>{menuItems}</Menu>} trigger={['click']}>
+            <Avatar size={40} >Me</Avatar>
+          </Dropdown>
+          </div>);
+      }
     }
     const parsed = queryString.parse(location.search);
     console.log(parsed);
@@ -298,7 +306,7 @@ const Index: React.FC = (props) => {
                 <About></About>
               </div>
             </TabPane>
-            <TabPane tab={<span></span>} key="5">
+            <TabPane tab={<span>Cruise Pro</span>} key="5">
               <div>
                 <Pay></Pay>
               </div>

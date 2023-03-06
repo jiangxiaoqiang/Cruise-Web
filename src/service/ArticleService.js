@@ -52,3 +52,13 @@ export function userLoginImpl(params) {
     };
     return requestWithAction(config, login);
 }
+
+export function userLoginAlipayImpl(params) {
+    const config = {
+        method: 'get',
+        url: '/post/alipay/login/getQRCodeUrl',
+        headers: {'Content-Type': 'application/json'},
+        params: params
+    };
+    return requestWithAction(config, login);
+}

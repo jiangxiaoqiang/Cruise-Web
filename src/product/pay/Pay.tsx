@@ -1,12 +1,19 @@
-import { Button, Typography } from "antd";
+import { Card, Col, Row } from "antd";
 import React from "react";
-const { Paragraph} = Typography;
 
 const Pay: React.FC = (props) => {
   return (
-    <Typography>
-      <Button>购买</Button>
-    </Typography>
+    <div>
+      <div>
+        <Row>
+          <Col><Card>88</Card></Col>
+          <Col><Card>9.9</Card></Col>
+          <Col><Card>99</Card></Col>
+          <Col><Card>10.24</Card></Col>
+        </Row>
+      </div>
+      <div>扫码购买</div>
+    </div>
   );
 }
 
