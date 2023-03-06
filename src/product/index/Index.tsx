@@ -306,7 +306,7 @@ const Index: React.FC = (props) => {
                 <About></About>
               </div>
             </TabPane>
-            <TabPane tab={<span>Cruise Pro</span>} key="5">
+            <TabPane tab={<span></span>} key="5">
               <div>
                 <Pay></Pay>
               </div>
