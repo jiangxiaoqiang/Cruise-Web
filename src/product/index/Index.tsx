@@ -144,7 +144,7 @@ const Index: React.FC = (props) => {
   ];
 
   const renderLogin=()=>{
-    if(!isLoggedIn){
+    if(isLoggedIn){
       var avatarUrl = localStorage.getItem('avatarUrl');
       if(avatarUrl){
         return (<div>
@@ -161,7 +161,6 @@ const Index: React.FC = (props) => {
       }
     }
     const parsed = queryString.parse(location.search);
-    console.log(parsed);
     if(parsed != null && parsed.access_token){
       localStorage.setItem('isLoggedIn', true);
       localStorage.setItem('cruiseAccessToken', parsed.access_token);
