@@ -62,3 +62,4 @@ export function userLoginAlipayImpl(params) {
     };
     return requestWithAction(config, login);
 }
+

@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Avatar, Button, Col, Divider, Dropdown, Menu, Row, Space, Spin, Tabs } from 'antd';
-// import 'antd/dist/antd.css';
 import './Index.css';
-import type { MenuProps } from 'antd';
 import { connect, RootStateOrAny } from 'react-redux';
 import * as articleService  from '../../service/ArticleService';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -17,13 +15,6 @@ import queryString from 'query-string';
 import Pay from '../pay/Pay';
 
 const { TabPane } = Tabs;
-
-const menuItems: MenuProps['items'] = [
-  {
-    label: <a href="https://www.antgroup.com">1st menu item</a>,
-    key: '0',
-  }
-];
 
 const Index: React.FC = (props) => {
 
@@ -67,7 +58,6 @@ const Index: React.FC = (props) => {
     articleService.userLoginAlipayImpl({}).then(data => {
       window.location.href=data.result;
     });
-    
   }
 
   const fetchNewestArticles = (key: string) => {
@@ -132,11 +122,14 @@ const Index: React.FC = (props) => {
         }
       });
     }
+    if(key === '4'){
+      setTabKey("4");
+    }
   }
 
   const handleLogout=()=>{
     localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('cruiseAccessToken');
     localStorage.removeItem('avatarUrl');
     window.location.href="https://read.poemhub.top";
   }
@@ -151,7 +144,7 @@ const Index: React.FC = (props) => {
   ];
 
   const renderLogin=()=>{
-    if(isLoggedIn){
+    if(!isLoggedIn){
       var avatarUrl = localStorage.getItem('avatarUrl');
       if(avatarUrl){
         return (<div>
@@ -171,7 +164,7 @@ const Index: React.FC = (props) => {
     console.log(parsed);
     if(parsed != null && parsed.access_token){
       localStorage.setItem('isLoggedIn', true);
-      localStorage.setItem('accessToken', parsed.access_token);
+      localStorage.setItem('cruiseAccessToken', parsed.access_token);
       localStorage.setItem('avatarUrl',parsed.avatar_url);
       window.location.href="https://read.poemhub.top";
     }
@@ -291,7 +284,7 @@ const Index: React.FC = (props) => {
     <div>
       <Row justify="center">
         <Col span={12}>
-          <Tabs defaultActiveKey="1" onChange={onChange} size="large" style={{ marginTop: 10 }}>
+          <Tabs defaultActiveKey="1" onChange={onChange} size="large" style={{ marginTop: 10 }} activeKey={tabKey}>
             <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>编辑推荐</span>} key="1">
               {renderList(items,"1")}
             </TabPane>
@@ -313,7 +306,7 @@ const Index: React.FC = (props) => {
             </TabPane>
           </Tabs>
         </Col>
-        <Col>
+        <Col style={{ marginTop: 10 }}>
           {renderLogin()}
         </Col>
       </Row> 

@@ -2,8 +2,25 @@ import axios from 'axios';
 import store from "../store";
 import { getArticle } from "../action/ArticleAction";
 
+const instance = axios.create({
+  timeout: 15000
+})
+
+instance.defaults.headers.post['Content-Type'] = 'application/json'
+
+instance.interceptors.request.use(
+  config => {
+      const accessToken = localStorage.getItem('cruiseAccessToken');
+      accessToken && (config.headers['x-access-token'] = accessToken);
+      return config
+  },
+  error => {
+      return Promise.reject(error)
+  }
+)
+
 export function request(config) {
-  return axios(config).then(
+  return instance(config).then(
     response => {
       const data = response.data.result;
       store.dispatch(getArticle(data));
@@ -16,7 +33,7 @@ export function request(config) {
 }
 
 export function requestWithAction(config, action) {
-  return axios(config).then(
+  return instance(config).then(
     response => {
       const data = response.data.result;
       store.dispatch(action(data));

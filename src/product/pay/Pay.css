@@ -2,17 +2,29 @@
   text-align: center;
 }
 
-.para {
-  
+.qrcode{
+  height: 200px;
+  width: 200px;
 }
 
-.content{
-  font-size: 0.05rem;
+.product{
+  font-size: 25px;
+  font-weight: bold;
+  color: #0f8bc9 !important; 
 }
 
-.contact{
-  height: 10px;
-  width: 10px;
+.product-price{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.container {
+  justify-content: center;
+  align-items: center;
+}
+
+.card-content {
+  text-align: center;
 }
 
 .App-logo {
