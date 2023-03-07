@@ -8,12 +8,9 @@ const Pay: React.FC = (props) => {
 
   React.useEffect(() => {
     let params = {
-      outTradeNo: "outTradeNo"
+      cruiseProductId: "1"
     };
-    payService.createQrCodeImpl(params).then((data) => {
-      //debugger
-      //setFormText(data);
-    });
+    payService.createQrCodeImpl(params);
   }, []);
   const formText = props.pay.formText;
 
