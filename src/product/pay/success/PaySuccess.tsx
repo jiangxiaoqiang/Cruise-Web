@@ -14,7 +14,7 @@ const PaySuccess: React.FC = (props) => {
     const parsed = queryString.parse(location.search);
     debugger
     if(parsed != null && parsed.orderId && parsed.totalAmount){
-      return (<div className="container">
+      return (<div className="pay-success-container">
       <h1>支付成功！</h1>
       <p>您的订单已经成功支付。</p>
       <p>订单号：{parsed.orderId}</p>
@@ -22,7 +22,7 @@ const PaySuccess: React.FC = (props) => {
       <p>支付时间：{currentTime}</p>
   </div>);
     }else{
-        return (<div className="container">
+        return (<div className="pay-success-container">
             <h1>支付失败！</h1>
         </div>);
     }
