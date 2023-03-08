@@ -3,7 +3,7 @@ const initState = {
     pay: {
 
     },
-    formText: 'demo'
+    formText: ''
 };
 
 const PayReducer = (state=initState, action) => {

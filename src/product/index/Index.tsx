@@ -27,8 +27,6 @@ const Index: React.FC = (props) => {
   let articles = useSelector((state: RootStateOrAny) => state.article);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
 
-  
-
   React.useEffect(() => {
     let params = {
       pageSize : pageSize,
