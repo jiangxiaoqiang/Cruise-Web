@@ -21,12 +21,12 @@ const PaySuccess: React.FC = (props) => {
     // 现代浏览器已经不再需要将 & 编码为 &amp;，但一些较旧版本的浏览器和遗留系统可能仍然需要这样做。
     const parsed = queryString.parse(location.search.replace(/&amp;/g, '&'));
     debugger
-    if(parsed != null && parsed.orderId && parsed.totalAmount){
+    if(parsed != null && parsed.orderId && parsed.payAmount){
       return (<div className="pay-success-container">
       <h1>支付成功！</h1>
       <p>您的订单已经成功支付。</p>
       <p>订单号：{parsed.orderId}</p>
-      <p>支付金额：${parsed.totalAmount}</p>
+      <p>支付金额：${parsed.payAmount}</p>
       <p>支付时间：{currentTime}</p>
   </div>);
     }else{
