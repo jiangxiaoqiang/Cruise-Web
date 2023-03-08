@@ -38,8 +38,8 @@ const Pay: React.FC = (props) => {
                     style={{border:
               selectedKey === 1 ? '2px solid blue' : '1px solid #f0f0f0'}}>
                 <div className="card-content">
-                  <div className="product">连续包年</div>
-                  <span className="product-price">¥88</span>
+                  <div className="product">1月订阅</div>
+                  <span className="product-price">¥5</span>
                 </div>
               </Card>
               <Button type="primary" 
@@ -57,13 +57,13 @@ const Pay: React.FC = (props) => {
                       style={{border:
                 selectedKey === 2 ? '2px solid blue' : '1px solid #f0f0f0'}}>
                 <div className="card-content">
-                  <div className="product">连续包月</div>
-                  <span className="product-price">¥9.9</span>
+                  <div className="product">3月订阅</div>
+                  <span className="product-price">¥15</span>
                 </div>
               </Card>
               <Button type="primary"
               onClick={(event)=>handlePay(event)}
-              data-param={"1"} 
+              data-param={"3"} 
                style={{
                 display: selectedKey === 2?'inline':'None',marginTop:20
               }}>去支付</Button>
@@ -76,34 +76,15 @@ const Pay: React.FC = (props) => {
                       style={{border:
                 selectedKey === 3 ? '2px solid blue' : '1px solid #f0f0f0'}}>
                 <div className="card-content">
-                  <div className="product">1年</div>
-                  <span className="product-price">¥99</span>
+                  <div className="product">1年订阅</div>
+                  <span className="product-price">¥60</span>
                 </div>
               </Card>
               <Button type="primary" 
               onClick={(event)=>handlePay(event)}
-              data-param={"1"} 
+              data-param={"2"} 
               style={{
                 display: selectedKey === 3?'inline':'None',marginTop:20
-              }}>去支付</Button>
-            </div>
-          </Col>
-          <Col>
-            <div className="container">
-              <Card key="4" 
-                      onClick={() => handleSelect(4)}
-                      style={{border:
-                selectedKey === 4 ? '2px solid blue' : '1px solid #f0f0f0'}}>
-                <div className="card-content">
-                  <div className="product">1月</div>
-                  <span className="product-price">¥10.24</span>
-                </div>
-              </Card>
-              <Button type="primary" 
-              onClick={(event)=>handlePay(event)}
-              data-param={"1"} 
-              style={{
-                display: selectedKey === 4?'inline':'None',marginTop:20
               }}>去支付</Button>
             </div>
           </Col>
