@@ -12,7 +12,8 @@ const PaySuccess: React.FC = (props) => {
     const currentTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
 
     const parsed = queryString.parse(location.search);
-    if(parsed != null && parsed.access_token){
+    debugger
+    if(parsed != null && parsed.orderId && parsed.totalAmount){
       return (<div className="container">
       <h1>支付成功！</h1>
       <p>您的订单已经成功支付。</p>
