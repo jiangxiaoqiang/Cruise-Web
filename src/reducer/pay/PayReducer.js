@@ -12,8 +12,12 @@ const PayReducer = (state=initState, action) => {
             return {
                 ...state,
                 formText: action.formText,
-                pay: {key:1}
             };
+            case "CLEAR_FORM_TEXT":
+                return {
+                    ...state,
+                    formText: action.formText,
+                };
         default:
             break;
     }

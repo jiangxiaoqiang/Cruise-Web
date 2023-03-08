@@ -10,3 +10,13 @@ export function createQrCodeImpl(params) {
     };
     return requestWithAction(config, createOrder);
 }
+
+export function clearFormText(params) {
+    const config = {
+        method: 'post',
+        url: '/post/alipay/pay/createOrder',
+        headers: {'Content-Type': 'application/json'},
+        data: JSON.stringify(params)
+    };
+    return requestWithAction(config, createOrder);
+}

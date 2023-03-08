@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import "./Pay.css"
 import * as payService  from '../../service/pay/PayService';
 import { connect } from "react-redux";
+import store from "../../store";
+import { clearFormText } from "../../action/pay/PayAction";
+
 
 const Pay: React.FC = (props) => {
 
@@ -15,6 +18,7 @@ const Pay: React.FC = (props) => {
 
   const handleSelect = (key) => {
     setSelectedKey(key);
+    store.dispatch(clearFormText());
   };
 
   const handlePay = (event: React.MouseEvent) => {
