@@ -102,6 +102,7 @@ const Pay: React.FC = (props) => {
             frameborder="no"
             border="0"
             marginwidth="0"
+            scrolling="no"
             marginheight="0"></iframe>
           </Col>
         </Row>

@@ -3,6 +3,7 @@ import { Route,Switch,BrowserRouter } from 'react-router-dom';
 import About from "../product/about/About";
 import Share from "../product/cruise/share/Share";
 import Index from '../product/index/Index.tsx'
+import PaySuccess from "../product/pay/success/PaySuccess";
 
 const routes = (
     <BrowserRouter>        
@@ -10,6 +11,7 @@ const routes = (
           <Route path="/" exact render={(props) => <Index {...props} />}/>
           <Route path="/about" exact render={(props) => <About {...props} />}/>
           <Route path="/product/cruise/share/:id" exact render={(props) => <Share {...props} />}/>
+          <Route path="/product/pay/success" exact render={(props) => <PaySuccess {...props} />}/>
         </Switch>
     </BrowserRouter>
 );
