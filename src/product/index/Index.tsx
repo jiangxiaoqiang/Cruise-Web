@@ -188,7 +188,7 @@ const Index: React.FC = (props) => {
   ];
 
   const renderLogin=()=>{
-    if(!isLoggedIn){
+    if(isLoggedIn){
       var avatarUrl = localStorage.getItem('avatarUrl');
       if(avatarUrl){
         return (<div>
