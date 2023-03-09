@@ -88,7 +88,8 @@ const Index: React.FC = (props) => {
     // 添加当前选项卡的样式
     tabs[index].classList.add("active");
     store.dispatch(clearArticles());
-    fetchNewestArticles(index.toString());
+    // debugger
+    fetchNewestArticles((Number(index)+1).toString());
   }
 
 
