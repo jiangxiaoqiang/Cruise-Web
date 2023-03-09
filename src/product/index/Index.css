@@ -94,6 +94,9 @@
   margin-left: auto;
 }
 
+.custom-row {
+  margin-bottom: 10px; /* 设置行与行之间的垂直间距 */
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
