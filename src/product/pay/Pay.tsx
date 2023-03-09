@@ -36,7 +36,7 @@ const Pay: React.FC = (props) => {
       <div>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="center">
           <Col>
-            <div className="container">
+            <div className="pay-container">
               <Card key="1" 
                     onClick={() => handleSelect(1)}
                     style={{border:
@@ -55,7 +55,7 @@ const Pay: React.FC = (props) => {
             </div>
           </Col>
           <Col>
-            <div className="container">
+            <div className="pay-container">
               <Card key="2" 
                       onClick={() => handleSelect(2)}
                       style={{border:
@@ -74,7 +74,7 @@ const Pay: React.FC = (props) => {
             </div>
           </Col>
           <Col>
-            <div className="container">
+            <div className="pay-container">
               <Card key="3" 
                       onClick={() => handleSelect(3)}
                       style={{border:

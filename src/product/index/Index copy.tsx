@@ -13,7 +13,6 @@ import Footer  from '../../component/footer/Footer';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import Pay from '../pay/Pay';
-import { debug } from 'console';
 
 const { TabPane } = Tabs;
 
@@ -29,7 +28,6 @@ const Index: React.FC = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
 
   React.useEffect(() => {
-    tabsTrigger();
     let params = {
       pageSize : pageSize,
       pageNum: 1
@@ -48,49 +46,6 @@ const Index: React.FC = (props) => {
       }
     });
   }, []);
-
-  const tabsTrigger = () => {
-    var tabContainers = document.getElementsByClassName("tab-content");
-
-    // 显示初始选项卡
-    showTab(0);
-
-    // 绑定选项卡的点击事件
-    var tabs = document.getElementsByClassName("tab");
-    for (var i = 0; i < tabs.length; i++) {
-        tabs[i].addEventListener("click", function() {
-            showTab(this.getAttribute("data-tab-index"));
-        });
-    }
-
-    // 切换选项卡
-    function showTab(index:number) {
-      showTabImpl(index);
-    }
-  }
-
-  const showTabImpl = (index: number) => {
-    var tabContainers = document.getElementsByClassName("tab-content");
-    // 隐藏所有选项卡的内容
-    for (var i = 0; i < tabContainers.length; i++) {
-      tabContainers[i].classList.remove("active");
-    }
-
-    // 显示当前选项卡的内容
-    tabContainers[index].classList.add("active");
-
-    // 将所有选项卡的样式重置为默认状态
-    var tabs = document.getElementsByClassName("tab");
-    for (var i = 0; i < tabs.length; i++) {
-      tabs[i].classList.remove("active");
-    }
-
-    // 添加当前选项卡的样式
-    tabs[index].classList.add("active");
-    store.dispatch(clearArticles());
-    fetchNewestArticles(index.toString());
-  }
-
 
   const onChange = (key: string) => {
     store.dispatch(clearArticles());
@@ -178,7 +133,7 @@ const Index: React.FC = (props) => {
   }
 
   const handleCruisePro=()=>{
-    showTabImpl(4);
+    setTabKey("5");
   }
 
   const menuItems = [
@@ -307,64 +262,54 @@ const Index: React.FC = (props) => {
       loader={<h4><Spin /></h4>}
       endMessage={
         <p style={{textAlign: 'center'}}>
-          <b>没有更多</b>
+          <b>Yay! You have seen it all</b>
         </p>
       }
       refreshFunction={refreshArticles}
       pullDownToRefresh={true}
       pullDownToRefreshContent={
-        <h3 style={{textAlign: 'center'}}>↓下拉刷新</h3>
+        <h3 style={{textAlign: 'center'}}>↓ Pull down to refresh</h3>
       }
       releaseToRefreshContent={
-        <h3 style={{textAlign: 'center'}}>↑松开刷新</h3>
+        <h3 style={{textAlign: 'center'}}>↑ Release to refresh</h3>
       }>
       {items}
     </InfiniteScroll>);
   }
-  
+  debugger
   return (
-	  <div className="container">
-        <div className="left">
-        </div>
+    <div>
+      <Row justify="center">
+        <Col span={12}>
 
-        <div className="center">
-            <div className="tab-container">
-                <div className="tab active" data-tab-index="0">编辑推荐</div>
-                <div className="tab" data-tab-index="1">权威资讯</div>
-                <div className="tab" data-tab-index="2">原始资讯</div>
-                <div className="tab" data-tab-index="3">关于Cruise</div>
-                <div className="tab" data-tab-index="4"></div>
-                <div className="user-login" data-tab-index="">
-                  {renderLogin()}
-                </div>
-            </div>
-
-            <div className="tab-content-container">
-                <div className="tab-content active" data-tab-index="0">
-                  {renderList(items,"1")}
-                </div>
-                <div className="tab-content" data-tab-index="1">
-                  {renderList(items,"2")}
-                </div>
-                <div className="tab-content" data-tab-index="2">
-                  {renderList(items,"3")}
-                </div>
-                <div className="tab-content" data-tab-index="3">
-                  <About></About>
-                </div>
-                <div className="tab-content" data-tab-index="4">
-                  <div>
-                    <Pay></Pay>
-                  </div>
-                </div>
-            </div>
-            <Footer></Footer>
-        </div>
-
-        <div className="right">
-        </div>
-        
-    </div> 
+          <Tabs defaultActiveKey="1" onChange={onChange} size="large" style={{ marginTop: 10 }} activeKey={tabKey}>
+            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>编辑推荐</span>} key="1">
+              {renderList(items,"1")}
+            </TabPane>
+            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>权威资讯</span>} key="2">
+              {renderList(items,"2")}
+            </TabPane>
+            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>原始资讯</span>} key="3">
+              {renderList(items,"3")}
+            </TabPane>
+            <TabPane tab={<span style={{fontSize:18, fontWeight: 'bold'}}>关于Cruise</span>} key="4">
+              <div>
+                <About></About>
+              </div>
+            </TabPane>
+            <TabPane tab={<span></span>} key="5">
+              <div>
+                <Pay></Pay>
+              </div>
+            </TabPane>
+          </Tabs>
+        </Col>
+        <Col style={{ marginTop: 20 }}>
+          {renderLogin()}
+        </Col>
+      </Row> 
+      <Footer></Footer>
+    </div>
   );
 }
 
