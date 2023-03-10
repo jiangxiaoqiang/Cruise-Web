@@ -38,7 +38,7 @@ class Share extends Component{
         <div className="app-body">
         <div >
           </div>
-          <div className="content">
+          <div className="share-content">
             <div className="html" dangerouslySetInnerHTML={{ __html: clean}}>
             
             </div>

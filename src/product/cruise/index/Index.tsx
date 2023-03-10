@@ -1,21 +1,18 @@
 import React, { useState } from 'react'
-import { Avatar, Button, Col, Divider, Dropdown, Menu, Row, Space, Spin, Tabs } from 'antd';
+import { Avatar, Button, Col, Divider, Dropdown, Menu, Row, Spin } from 'antd';
 import './Index.css';
 import { connect, RootStateOrAny } from 'react-redux';
-import * as articleService  from '../../service/ArticleService';
+import * as articleService  from '../../../service/ArticleService';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import About from '../about/About';
 import { useSelector } from 'react-redux'
-import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles, login } from '../../action/ArticleAction';
-import store from "../../store";
+import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles, login } from '../../../action/ArticleAction';
+import store from "../../../store";
 import TimeUtils from "js-wheel/dist/src/utils/time/time";
-import Footer  from '../../component/footer/Footer';
+import Footer  from '../../../component/footer/Footer';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import Pay from '../pay/Pay';
-import { debug } from 'console';
-
-const { TabPane } = Tabs;
+import Pay from '../../pay/Pay';
 
 const Index: React.FC = (props) => {
 
@@ -50,8 +47,6 @@ const Index: React.FC = (props) => {
   }, []);
 
   const tabsTrigger = () => {
-    var tabContainers = document.getElementsByClassName("tab-content");
-
     // 显示初始选项卡
     showTab(0);
 
@@ -91,12 +86,6 @@ const Index: React.FC = (props) => {
     // debugger
     fetchNewestArticles((Number(index)+1).toString());
   }
-
-
-  const onChange = (key: string) => {
-    store.dispatch(clearArticles());
-    fetchNewestArticles(key);
-  };
 
   const userLogin =() => {
     articleService.userLoginAlipayImpl({}).then(data => {

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Chat Page</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+      }
+      
+      .chat-container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      
+      .chat-header {
+        padding: 10px 20px;
+        background-color: #4d4d4d;
+        color: #fff;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      
+      .chat-body {
+        padding: 20px;
+        height: 500px;
+        overflow-y: scroll;
+      }
+      
+      .chat-message {
+        margin-bottom: 20px;
+      }
+      
+      .chat-message .message-time {
+        font-size: 12px;
+        color: #aaa;
+        margin-bottom: 5px;
+      }
+      
+      .chat-message .message-text {
+        font-size: 16px;
+        padding: 10px;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .chat-form {
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+      
+      .chat-form input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+      }
+      
+      .chat-form button {
+        background-color: #4d4d4d;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .chat-form button:hover {
+        background-color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">
+        <h2>Chat with ChatGPT</h2>
+      </div>
+      <div class="chat-body">
+        <div class="chat-message">
+          <div class="message-time">10:00 AM</div>
+          <div class="message-text">Hello, how can I help you today?</div>
+        </div>
+        <div class="chat-message">
+          <div class="message-time">10:05 AM</div>
+          <div class="message-text">I have a question about React.</div>
+        </div>
+        <div class="chat-message">
+          <div class="message-time">10:07 AM</div>
+          <div class="message-text">Sure, what's your question?</div>
+        </div>
+        <div class="chat-message">
+          <div class="message-time">10:10 AM</div>
+          <div class="message-text">How do I pass data from a child component to a parent component in React?</div>
+        </div>
+      </div>
+      <div class="chat-form">
+        <input type="text" placeholder="Type your message here...">
+        <button>Send</button>
+      </div>
+    </div>
+</body>
+</html>
