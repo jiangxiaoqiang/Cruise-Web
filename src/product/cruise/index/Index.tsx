@@ -88,7 +88,10 @@ const Index: React.FC = (props) => {
   }
 
   const userLogin =() => {
-    articleService.userLoginAlipayImpl({}).then(data => {
+    let params = {
+      appId: "oloLNAXvJu"
+    }
+    articleService.userLoginAlipayImpl(params).then(data => {
       window.location.href=data.result;
     });
   }
