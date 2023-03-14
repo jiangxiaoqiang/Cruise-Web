@@ -14,6 +14,7 @@ import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import Pay from '../../pay/Pay';
 import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 
 
 const Index: React.FC = (props) => {
@@ -29,6 +30,8 @@ const Index: React.FC = (props) => {
   const [cookies] = useCookies(['accessToken']);
 
   React.useEffect(() => {
+    const cookie1 = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
+    console.log("readcookies1111",cookie1);
     if(cookies) {
       console.log("readcookies",cookies);
     }
@@ -212,7 +215,9 @@ const Index: React.FC = (props) => {
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('cruiseAccessToken', parsed.access_token);
       localStorage.setItem('avatarUrl',parsed.avatar_url);
-    }
+      const cookie12 = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
+      console.log("readcookies12311",cookie12);
+      }
     return (<div><Button name='cruiseLoginBtn' onClick={userLogin}>登录</Button></div>);
   }
 
