@@ -212,7 +212,6 @@ const Index: React.FC = (props) => {
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('cruiseAccessToken', parsed.access_token);
       localStorage.setItem('avatarUrl',parsed.avatar_url);
-      window.location.href="https://read.poemhub.top";
     }
     return (<div><Button name='cruiseLoginBtn' onClick={userLogin}>登录</Button></div>);
   }
