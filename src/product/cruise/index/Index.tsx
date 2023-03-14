@@ -13,8 +13,8 @@ import Footer  from '../../../component/footer/Footer';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import Pay from '../../pay/Pay';
-import { useCookies } from 'react-cookie';
-import Cookies from 'js-cookie';
+//import { useCookies } from 'react-cookie';
+//import Cookies from 'js-cookie';
 
 
 const Index: React.FC = (props) => {
@@ -27,17 +27,12 @@ const Index: React.FC = (props) => {
   const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
-  const [cookies] = useCookies(['accessToken']);
+  // const [cookies] = useCookies(['accessToken']);
 
   React.useEffect(() => {
     const cookie1 = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
     console.log("readcookies1111",cookie1);
-    if(cookies) {
-      console.log("readcookies",cookies);
-    }
-    else{
-      console.log("No cookies");
-    }
+   
     
     tabsTrigger();
     let params = {
