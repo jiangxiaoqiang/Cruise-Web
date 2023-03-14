@@ -13,6 +13,8 @@ import Footer  from '../../../component/footer/Footer';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import Pay from '../../pay/Pay';
+import { useCookies } from 'react-cookie';
+
 
 const Index: React.FC = (props) => {
 
@@ -24,8 +26,16 @@ const Index: React.FC = (props) => {
   const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
+  const [cookies] = useCookies(['accessToken']);
 
   React.useEffect(() => {
+    if(cookies) {
+      console.log("readcookies",cookies);
+    }
+    else{
+      console.log("No cookies");
+    }
+    
     tabsTrigger();
     let params = {
       pageSize : pageSize,
@@ -44,6 +54,7 @@ const Index: React.FC = (props) => {
         setOffset(new Map([...offset].concat([...newOffset])))
       }
     });
+    
   }, []);
 
   const tabsTrigger = () => {
@@ -198,7 +209,7 @@ const Index: React.FC = (props) => {
     }
     const parsed = queryString.parse(location.search);
     if(parsed != null && parsed.access_token){
-      localStorage.setItem('isLoggedIn', true);
+      localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('cruiseAccessToken', parsed.access_token);
       localStorage.setItem('avatarUrl',parsed.avatar_url);
       window.location.href="https://read.poemhub.top";

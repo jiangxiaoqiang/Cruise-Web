@@ -3,7 +3,6 @@ import Footer from "../../../component/footer/Footer";
 import React from "react";
 import { connect } from "react-redux";
 import GenieHeader from "../component/header/GenieHeader";
-import Chat from "./chat/Chat";
 
 const GenieIndex: React.FC = (props) => {
 
@@ -13,7 +12,7 @@ const GenieIndex: React.FC = (props) => {
   };
 
   const renderChat=()=>{
-    return (<Chat></Chat>);
+    return (<div></div>);
   }
 
   const renderAccountBuy=()=>{
