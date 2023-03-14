@@ -10,30 +10,19 @@ import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles, l
 import store from "../../../store";
 import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../../component/footer/Footer';
-import { useLocation } from 'react-router-dom';
-import queryString from 'query-string';
 import Pay from '../../pay/Pay';
-//import { useCookies } from 'react-cookie';
-//import Cookies from 'js-cookie';
-
 
 const Index: React.FC = (props) => {
 
   const [pageNum, setPageNum] = useState(1);
   const [pageSize] = useState(20);
-  const location = useLocation();
   const [offset, setOffset] = useState(new Map<string, number>());
   const [tabKey, setTabKey] = useState("1");
   const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
-  // const [cookies] = useCookies(['accessToken']);
 
   React.useEffect(() => {
-    const cookie1 = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
-    console.log("readcookies1111",cookie1);
-   
-    
     tabsTrigger();
     let params = {
       pageSize : pageSize,
@@ -175,6 +164,7 @@ const Index: React.FC = (props) => {
   const handleLogout=()=>{
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('cruiseAccessToken');
+    localStorage.removeItem('cruiseRefreshToken');
     localStorage.removeItem('avatarUrl');
     window.location.href="https://read.poemhub.top";
   }
@@ -205,13 +195,14 @@ const Index: React.FC = (props) => {
           </div>);
       }
     }
-    const parsed = queryString.parse(location.search);
-    if(parsed != null && parsed.access_token){
+    const accessTokenCookie = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
+    if(accessTokenCookie){
+      const refreshTokenCookie = document.cookie.split('; ').find(row => row.startsWith('refreshToken='));
+      const avatarUrlCookie = document.cookie.split('; ').find(row => row.startsWith('avatarUrl='));
       localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('cruiseAccessToken', parsed.access_token);
-      localStorage.setItem('avatarUrl',parsed.avatar_url);
-      const cookie12 = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
-      console.log("readcookies12311",cookie12);
+      localStorage.setItem('cruiseAccessToken', accessTokenCookie);
+      localStorage.setItem('cruiseRefreshToken', refreshTokenCookie?refreshTokenCookie:"");
+      localStorage.setItem('avatarUrl',avatarUrlCookie?avatarUrlCookie:"");
       }
     return (<div><Button name='cruiseLoginBtn' onClick={userLogin}>登录</Button></div>);
   }
