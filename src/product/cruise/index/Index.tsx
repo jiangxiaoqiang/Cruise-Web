@@ -203,7 +203,7 @@ const Index: React.FC = (props) => {
       localStorage.setItem('cruiseAccessToken', accessTokenCookie);
       localStorage.setItem('cruiseRefreshToken', refreshTokenCookie?refreshTokenCookie:"");
       localStorage.setItem('avatarUrl',avatarUrlCookie?avatarUrlCookie:"");
-      }
+    }
     return (<div><Button name='cruiseLoginBtn' onClick={userLogin}>登录</Button></div>);
   }
 

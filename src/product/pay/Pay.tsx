@@ -25,7 +25,7 @@ const Pay: React.FC = (props) => {
     if(event.currentTarget){
       let productId = event.currentTarget.attributes.getNamedItem('data-param')?.value; // 输出自定义参数
       let params = {
-        cruiseProductId: productId
+        productId: productId
       };
       payService.createQrCodeImpl(params);
     }
