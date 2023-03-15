@@ -11,6 +11,7 @@ import store from "../../../store";
 import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../../component/footer/Footer';
 import Pay from '../../pay/Pay';
+import Panel from '../menu/panel/Panel';
 
 const Index: React.FC = (props) => {
 
@@ -169,13 +170,18 @@ const Index: React.FC = (props) => {
     window.location.href="https://read.poemhub.top";
   }
 
+  const handleControlPanel=()=>{
+    showTabImpl(5);
+  }
+
   const handleCruisePro=()=>{
     showTabImpl(4);
   }
 
   const menuItems = [
     <Menu.Item key="1"><span onClick={handleCruisePro}>Cruise Pro</span></Menu.Item>,
-    <Menu.Item key="2"><span onClick={handleLogout}>登出</span></Menu.Item>
+    // <Menu.Item key="2"><span onClick={handleControlPanel}>控制台</span></Menu.Item>,
+    <Menu.Item key="3"><span onClick={handleLogout}>登出</span></Menu.Item>
   ];
 
   const renderLogin=()=>{
@@ -328,6 +334,7 @@ const Index: React.FC = (props) => {
                 <div className="tab" data-tab-index="2">原始资讯</div>
                 <div className="tab" data-tab-index="3">关于Cruise</div>
                 <div className="tab" data-tab-index="4"></div>
+                <div className="tab" data-tab-index="5"></div>
                 <div className="user-login" data-tab-index="">
                   {renderLogin()}
                 </div>
@@ -350,6 +357,9 @@ const Index: React.FC = (props) => {
                   <div>
                     <Pay></Pay>
                   </div>
+                </div>
+                <div className="tab-content" data-tab-index="5">
+                    <Panel></Panel>
                 </div>
             </div>
             <Footer></Footer>

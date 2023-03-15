@@ -3,7 +3,6 @@ import { Route,Switch,BrowserRouter } from 'react-router-dom';
 import About from "../product/cruise/about/About";
 import Share from "../product/cruise/share/Share";
 import Index from '../product/cruise/index/Index.tsx';
-import GenieIndex from "../product/genie/index/GenieIndex";
 import PaySuccess from "../product/pay/success/PaySuccess";
 
 const routes = (
@@ -13,7 +12,6 @@ const routes = (
           <Route path="/about" exact render={(props) => <About {...props} />}/>
           <Route path="/product/cruise/share/:id" exact render={(props) => <Share {...props} />}/>
           <Route path="/product/pay/success" exact render={(props) => <PaySuccess {...props} />}/>
-          <Route path="/product/genie/index" exact render={(props) => <GenieIndex {...props} />}/>
         </Switch>
     </BrowserRouter>
 );

@@ -13,7 +13,6 @@
 /* 左侧区域 */
 .left {
   width: 20%;
-  /*background-color: #f6f7f9;*/
   padding: 16px;
 }
 
@@ -22,13 +21,11 @@
   width: 60%;
   background-color: #fff;
   padding: 16px;
-  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
 }
 
 /* 右侧区域 */
 .right {
   width: 20%;
-  /*background-color: #f6f7f9;*/
   padding: 16px;
 }
 
@@ -74,7 +71,6 @@
   padding: 16px;
   background-color: #fff;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex-grow: 1;
   margin-left: 16px;
   margin-right: 16px;
