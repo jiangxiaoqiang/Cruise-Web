@@ -214,7 +214,7 @@ const Index: React.FC = (props) => {
       }
     }
     const accessTokenOrigin = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
-    if(accessTokenOrigin){
+    if(accessTokenOrigin && localStorage.getItem('cruiseAccessToken') == null){
       const accessTokenCookie = accessTokenOrigin.split("=")[1];
       const refreshTokenCookie = document.cookie.split('; ').find(row => row.startsWith('refreshToken='))?.split("=")[1];
       const avatarUrlCookie = document.cookie.split('; ').find(row => row.startsWith('avatarUrl='))?.split("=")[1];
@@ -222,7 +222,7 @@ const Index: React.FC = (props) => {
       localStorage.setItem('cruiseAccessToken', accessTokenCookie);
       localStorage.setItem('cruiseRefreshToken', refreshTokenCookie?refreshTokenCookie:"");
       localStorage.setItem('avatarUrl',avatarUrlCookie?avatarUrlCookie:"");
-      //loadCurrentUser();
+      loadCurrentUser();
       setIsLoggedIn(true);
     }
     return (<div><Button name='cruiseLoginBtn' onClick={userLogin}>登录</Button></div>);
