@@ -29,7 +29,7 @@ const Panel: React.FC = (props:any) => {
 				  document.getElementById(targetPageId!)!.style.display = 'block';
         }
         if(targetPageId === 'userinfo'){
-          loadCurrentUser();
+          //loadCurrentUser();
         }
 			});
 		});
