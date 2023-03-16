@@ -13,6 +13,8 @@ import Footer  from '../../../component/footer/Footer';
 import Pay from '../../pay/Pay';
 import Panel from '../menu/panel/Panel';
 import { getCurrentUser } from '@/service/user/UserService';
+import { UserOutlined, PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';
+
 
 const Index: React.FC = (props) => {
 
@@ -188,9 +190,15 @@ const Index: React.FC = (props) => {
   }
 
   const menuItems = [
-    <Menu.Item key="1"><span onClick={handleCruisePro}>Cruise Pro</span></Menu.Item>,
-    <Menu.Item key="2"><span onClick={handleControlPanel}>控制台</span></Menu.Item>,
-    <Menu.Item key="3"><span onClick={handleLogout}>登出</span></Menu.Item>
+    <Menu.Item key="1" icon={<PayCircleOutlined />} style={{ fontSize: '16px' }}>
+      <span onClick={handleCruisePro}>Cruise Pro</span>
+    </Menu.Item>,
+    <Menu.Item key="2" icon={<ToolOutlined />} style={{ fontSize: '16px' }}>
+      <span onClick={handleControlPanel}>控制台</span>
+    </Menu.Item>,
+    <Menu.Item key="3" icon={<LogoutOutlined />} style={{ fontSize: '16px' }}>
+      <span onClick={handleLogout}>登出</span>
+    </Menu.Item>
   ];
 
   const renderLogin=()=>{
