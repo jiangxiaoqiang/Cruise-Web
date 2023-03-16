@@ -12,6 +12,7 @@ import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../../component/footer/Footer';
 import Pay from '../../pay/Pay';
 import Panel from '../menu/panel/Panel';
+import { getCurrentUser } from '@/service/user/UserService';
 
 const Index: React.FC = (props) => {
 
@@ -25,6 +26,7 @@ const Index: React.FC = (props) => {
 
   React.useEffect(() => {
     tabsTrigger();
+    loadCurrentUser();
     let params = {
       pageSize : pageSize,
       pageNum: 1
@@ -45,9 +47,17 @@ const Index: React.FC = (props) => {
     
   }, []);
 
+  const loadCurrentUser = () => {
+    if(!localStorage.getItem("userInfo")){
+      getCurrentUser().then((data)=>{
+        localStorage.setItem("userInfo",JSON.stringify(data.result));
+      });
+    }
+  }
+
   const tabsTrigger = () => {
     // 显示初始选项卡
-    showTab(0);
+    //showTab(0);
 
     // 绑定选项卡的点击事件
     var tabs = document.getElementsByClassName("tab");
@@ -82,7 +92,6 @@ const Index: React.FC = (props) => {
     // 添加当前选项卡的样式
     tabs[index].classList.add("active");
     store.dispatch(clearArticles());
-    // debugger
     fetchNewestArticles((Number(index)+1).toString());
   }
 
@@ -180,7 +189,7 @@ const Index: React.FC = (props) => {
 
   const menuItems = [
     <Menu.Item key="1"><span onClick={handleCruisePro}>Cruise Pro</span></Menu.Item>,
-    // <Menu.Item key="2"><span onClick={handleControlPanel}>控制台</span></Menu.Item>,
+    <Menu.Item key="2"><span onClick={handleControlPanel}>控制台</span></Menu.Item>,
     <Menu.Item key="3"><span onClick={handleLogout}>登出</span></Menu.Item>
   ];
 

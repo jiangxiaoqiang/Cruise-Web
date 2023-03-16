@@ -1,12 +1,14 @@
 import { Avatar, Button, Card, Col, Input, Row } from "antd";
-import React from "react";
+import React, { useRef } from "react";
 import './Panel.css';
 import pic from '@/resource/img/alipay-circle.png';
 import { getCurrentUser } from '@/service/user/UserService';
 import { connect } from "react-redux";
 import { getCurrentUserAction } from "@/action/user/UserAction";
 
-const Panel: React.FC = (props) => {
+const Panel: React.FC = (props:any) => {
+  const buttonRef = useRef<HTMLDivElement>(null);
+
   React.useEffect(() => {
     
     // 获取所有菜单项和对应的页面
@@ -31,6 +33,7 @@ const Panel: React.FC = (props) => {
         }
 			});
 		});
+    buttonRef.current!.click();
   })
 
   const loadCurrentUser=()=>{
@@ -41,27 +44,27 @@ const Panel: React.FC = (props) => {
     getCurrentUser();
   }
 
-  
-
-
+  const userJson:any = localStorage.getItem('userInfo');
+  const userInfo = JSON.parse(userJson);
+   
   return (
     <div className="panel-container">
       <div className="panel-menu">
-        <div className="menu-item" data-target="userinfo"><span>用户信息</span></div>
-        <div className="menu-item" data-target="feedback"><span>意见与建议</span></div>
+        <div className="menu-item" data-target="userinfo" id="userinfo-menu" ref={buttonRef}><span>用户信息</span></div>
+         {/*<div className="menu-item" data-target="feedback"><span>意见与建议</span></div>*/}
       </div>
       <div className="panel-content">
         <div id="userinfo" style={{display:'None'}}>
           <Card title="基本信息" style={{ marginBottom: '20px' }}>
             <Row style={{ marginTop: '10px', marginBottom: '20px' }}>
               <Col span={8}><span className="user-info">用户昵称</span></Col>
-              <Col span={8}><span className="user-info">dolphin</span></Col>
-              <Col span={8}><Button>修改</Button></Col>
+              <Col span={8}><span className="user-info">{userInfo?userInfo!.nickname:""}</span></Col>
+              <Col span={8}></Col>
             </Row>
             <Row style={{ marginTop: '10px', marginBottom: '10px' }}>
               <Col span={8}><span className="user-info">会员到期日</span></Col>
-              <Col span={8}><span className="user-info">2023-09-04</span></Col>
-              <Col span={8}><Button>续费</Button></Col>
+              <Col span={8}><span className="user-info">{userInfo&&userInfo.autoRenewProductExpireTimeMs?userInfo.autoRenewProductExpireTimeMs:"--"}</span></Col>
+              <Col span={8}></Col>
             </Row>
           </Card>
           <Card title="登录凭据">
@@ -70,7 +73,7 @@ const Panel: React.FC = (props) => {
                 <Avatar src={pic}></Avatar>
               </Col>
               <Col span={8}><span>已绑定</span></Col>
-              <Col span={8}><span>解绑</span></Col>
+              <Col span={8}><span></span></Col>
             </Row>
           </Card>
         </div>
