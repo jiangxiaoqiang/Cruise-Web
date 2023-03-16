@@ -12,7 +12,7 @@ import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../../component/footer/Footer';
 import Pay from '../../pay/Pay';
 import Panel from '../menu/panel/Panel';
-import { getCurrentUser } from '@/service/user/UserService';
+import { doLoginOut, getCurrentUser } from '@/service/user/UserService';
 import { UserOutlined, PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';
 
 
@@ -174,11 +174,7 @@ const Index: React.FC = (props) => {
   }
 
   const handleLogout=()=>{
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('cruiseAccessToken');
-    localStorage.removeItem('cruiseRefreshToken');
-    localStorage.removeItem('avatarUrl');
-    window.location.href="https://read.poemhub.top";
+    doLoginOut();
   }
 
   const handleControlPanel=()=>{

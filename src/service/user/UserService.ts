@@ -9,3 +9,13 @@ export function getCurrentUser() {
     };
     return requestWithAction(config, getCurrentUserAction);
 }
+
+export function doLoginOut() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('cruiseAccessToken');
+    localStorage.removeItem('cruiseRefreshToken');
+    localStorage.removeItem('avatarUrl');
+    localStorage.removeItem('userInfo');
+    window.location.href="https://read.poemhub.top";
+}
+
