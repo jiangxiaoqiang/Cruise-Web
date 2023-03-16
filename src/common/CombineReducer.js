@@ -3,11 +3,13 @@ import { combineReducers } from 'redux';
 import article from '../reducer/ArticleReducer';
 import pay from '../reducer/pay/PayReducer';
 import user from '@/reducer/user/UserReducer';
+import feedback from '@/reducer/user/FeedbackReducer';
 
 const rootReducer = combineReducers({
     article,
     pay,
-    user
+    user,
+    feedback
 })
 
 export default rootReducer;

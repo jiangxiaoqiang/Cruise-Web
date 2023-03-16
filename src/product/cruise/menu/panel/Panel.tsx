@@ -1,10 +1,11 @@
 import { Avatar, Button, Card, Col, Input, Row } from "antd";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './Panel.css';
 import pic from '@/resource/img/alipay-circle.png';
 import { connect } from "react-redux";
 import { getCurrentUserAction } from "@/action/user/UserAction";
 import { IUserModel } from "@/models/user/UserModel";
+import { submitFeedback } from "@/service/user/FeedbackService";
 
 export type PanelProps = {
   panelUserInfo: IUserModel|undefined;
@@ -12,30 +13,41 @@ export type PanelProps = {
 
 const Panel: React.FC<PanelProps> = (props:any) => {
   const buttonRef = useRef<HTMLDivElement>(null);
+  const [feedbackValue, setFeedbackValue] = useState('');
+
+  function handleInputChange(event:any) {
+    setFeedbackValue(event.target.value);
+  }
 
   React.useEffect(() => {
-    
-    // 获取所有菜单项和对应的页面
 		const menuItems = document.querySelectorAll('.menu-item');
 		const pages = document.querySelectorAll('.panel-content > div');
-		
-		// 给每个菜单项添加点击事件处理程序
 		menuItems.forEach(item => {
-			item.addEventListener('click', () => {
-				// 隐藏所有页面
+			item.addEventListener('click', (e) => {
 				pages.forEach(page => {
 					page.style.display = 'none';
 				});
-				
-				// 显示当前菜单项对应的页面
 				const targetPageId = item.getAttribute('data-target');
+        
         if(document){
 				  document.getElementById(targetPageId!)!.style.display = 'block';
         }
 			});
 		});
     buttonRef.current!.click();
-  })
+  },[])
+
+  const handleFeedback = () => {
+    if(feedbackValue==null||feedbackValue.length==0) {
+      return;
+    }
+    const params = {
+      feedback: feedbackValue
+    };
+    submitFeedback(params).then((data) => {
+      alert(data.msg);
+    });
+  }
 
   const userInfo = props.panelUserInfo;
 
@@ -43,7 +55,7 @@ const Panel: React.FC<PanelProps> = (props:any) => {
     <div className="panel-container">
       <div className="panel-menu">
         <div className="menu-item" data-target="userinfo" id="userinfo-menu" ref={buttonRef}><span>用户信息</span></div>
-         {/*<div className="menu-item" data-target="feedback"><span>意见与建议</span></div>*/}
+         <div className="menu-item" data-target="feedback"><span>意见与建议</span></div>
       </div>
       <div className="panel-content">
         <div id="userinfo" style={{display:'None'}}>
@@ -72,8 +84,8 @@ const Panel: React.FC<PanelProps> = (props:any) => {
         <div id="feedback" style={{display:'None'}}>
           <p>您可以反馈使用问题、建议，也可以发送想看的内容领域、信源给我们。</p>
           <div>
-            <Input placeholder="请输入反馈内容"></Input>
-            <Button className="feedback-submit">提交反馈</Button>
+            <Input onChange={handleInputChange} placeholder="请输入反馈内容"></Input>
+            <Button onClick={handleFeedback} className="feedback-submit">提交反馈</Button>
           </div>
         </div>
       </div>
