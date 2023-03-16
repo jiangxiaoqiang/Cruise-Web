@@ -35,6 +35,14 @@ const Index: React.FC = (props) => {
 
   useEffect(() => {
     showTabImpl();
+    if(tabKey === 5 && isLoggedIn){
+      if(!userInfo){
+        const storeUser = localStorage.getItem("userInfo");
+        if(storeUser){
+          setUserInfo(JSON.parse(storeUser));
+        }
+      }
+    }
   }, [tabKey]);
 
   const loadCurrentUser = () => {
@@ -163,14 +171,14 @@ const Index: React.FC = (props) => {
   }
 
   const menuItems = [
-    <Menu.Item key="1" icon={<PayCircleOutlined />} style={{ fontSize: '16px' }}>
-      <span onClick={handleCruisePro}>Cruise Pro</span>
+    <Menu.Item onClick={handleCruisePro} key="1" icon={<PayCircleOutlined />} style={{ fontSize: '16px' }}>
+      <span>Cruise Pro</span>
     </Menu.Item>,
-    <Menu.Item key="2" icon={<ToolOutlined />} style={{ fontSize: '16px' }}>
-      <span onClick={handleControlPanel}>控制台</span>
+    <Menu.Item onClick={handleControlPanel} key="2" icon={<ToolOutlined />} style={{ fontSize: '16px' }}>
+      <span>控制台</span>
     </Menu.Item>,
-    <Menu.Item key="3" icon={<LogoutOutlined />} style={{ fontSize: '16px' }}>
-      <span onClick={handleLogout}>登出</span>
+    <Menu.Item onClick={handleLogout} key="3" icon={<LogoutOutlined />} style={{ fontSize: '16px' }}>
+      <span>登出</span>
     </Menu.Item>
   ];
 
@@ -352,7 +360,7 @@ const Index: React.FC = (props) => {
                   </div>
                 </div>
                 <div className="tab-content" data-tab-index="5">
-                    <Panel panelUserInfo={userInfo}></Panel>
+                  <Panel panelUserInfo={userInfo}></Panel>
                 </div>
             </div>
             <Footer></Footer>
