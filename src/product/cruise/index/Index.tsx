@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Button, Col, Divider, Dropdown, Menu, Row, Spin } from 'antd';
 import './Index.css';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -14,45 +14,34 @@ import Pay from '../../pay/Pay';
 import Panel from '../menu/panel/Panel';
 import { doLoginOut, getCurrentUser } from '@/service/user/UserService';
 import { PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';
+import { IUserModel } from '@/models/user/UserModel';
 
 
 const Index: React.FC = (props) => {
 
   const [pageNum, setPageNum] = useState(1);
   const [isGetUserLoading, setIsGetUserLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState<IUserModel>();
   const [pageSize] = useState(20);
   const [offset, setOffset] = useState(new Map<string, number>());
-  const [tabKey, setTabKey] = useState("1");
+  const [tabKey, setTabKey] = useState(0);
   const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
 
   React.useEffect(() => {
     tabsTrigger();
-    let params = {
-      pageSize : pageSize,
-      pageNum: 1
-    };
-    articleService.getRecommandArticlesImpl(params).then((data) => {
-      setTabKey("1");
-      if(offset.get('recommand')){
-        return;
-      }
-      if(data && data.result){
-        var ids = data.result.list.map((item: { id: number; }) => item.id);
-        var newOffset = new Map();
-        var maxId = Math.max(...ids);
-        newOffset.set('recommand',maxId);
-        setOffset(new Map([...offset].concat([...newOffset])))
-      }
-    });
-    
   }, []);
+
+  useEffect(() => {
+    showTabImpl();
+  }, [tabKey]);
 
   const loadCurrentUser = () => {
     if(!localStorage.getItem("userInfo") && isGetUserLoading === false){
       setIsGetUserLoading(true);
       getCurrentUser().then((data)=>{
+        setUserInfo(data.result);
         localStorage.setItem("userInfo",JSON.stringify(data.result));
         setIsGetUserLoading(false);
       });
@@ -64,17 +53,12 @@ const Index: React.FC = (props) => {
     var tabs = document.getElementsByClassName("tab");
     for (var i = 0; i < tabs.length; i++) {
         tabs[i].addEventListener("click", function() {
-            showTab(this.getAttribute("data-tab-index"));
+          setTabKey(this.getAttribute("data-tab-index"));
         });
-    }
-
-    // 切换选项卡
-    function showTab(index:number) {
-      showTabImpl(index);
     }
   }
 
-  const showTabImpl = (index: number) => {
+  const showTabImpl = () => {
     var tabContainers = document.getElementsByClassName("tab-content");
     // 隐藏所有选项卡的内容
     for (var i = 0; i < tabContainers.length; i++) {
@@ -82,7 +66,7 @@ const Index: React.FC = (props) => {
     }
 
     // 显示当前选项卡的内容
-    tabContainers[index].classList.add("active");
+    tabContainers[tabKey].classList.add("active");
 
     // 将所有选项卡的样式重置为默认状态
     var tabs = document.getElementsByClassName("tab");
@@ -91,9 +75,9 @@ const Index: React.FC = (props) => {
     }
 
     // 添加当前选项卡的样式
-    tabs[index].classList.add("active");
+    tabs[tabKey].classList.add("active");
     store.dispatch(clearArticles());
-    fetchNewestArticles((Number(index)+1).toString());
+    fetchNewestArticles(Number(tabKey));
   }
 
   const userLogin =() => {
@@ -105,16 +89,15 @@ const Index: React.FC = (props) => {
     });
   }
 
-  const fetchNewestArticles = (key: string) => {
+  const fetchNewestArticles = (key: number) => {
     setPageNum(1);
-    if(key === '1'){
+    if(key === 0){
       let params = {
         pageSize : 20,
         pageNum: 1,
         offset: offset.get('recommand')
       };
       articleService.getRecommandArticlesImpl(params).then((data) => {
-        setTabKey("1");
         if(offset.get('recommand')){
           return;
         }
@@ -127,14 +110,13 @@ const Index: React.FC = (props) => {
         }
       });
     }
-    if(key === '2'){
+    if(key === 1){
       let params = {
         pageSize : 20,
         pageNum: 1,
         offset: offset.get('official')
       };
       articleService.getOfficialArticlesImpl(params).then((data) => {
-        setTabKey("2");
         if(offset.get('official')){
           return;
         }
@@ -147,14 +129,13 @@ const Index: React.FC = (props) => {
         }
       });
     }
-    if(key === '3'){
+    if(key === 2){
       let params = {
         pageSize : 20,
         pageNum: 1,
         offset: offset.get('original')
       };
       articleService.getOriginalArticlesImpl(params).then((data) => {
-        setTabKey("3");
         if(offset.get('original')){
           return;
         }
@@ -167,9 +148,6 @@ const Index: React.FC = (props) => {
         }
       });
     }
-    if(key === '4'){
-      setTabKey("4");
-    }
   }
 
   const handleLogout=()=>{
@@ -177,11 +155,11 @@ const Index: React.FC = (props) => {
   }
 
   const handleControlPanel=()=>{
-    showTabImpl(5);
+    setTabKey(5);
   }
 
   const handleCruisePro=()=>{
-    showTabImpl(4);
+    setTabKey(4);
   }
 
   const menuItems = [
@@ -273,7 +251,7 @@ const Index: React.FC = (props) => {
     return keys;
   }
 
-  const fetchMoreData = (currentTabKey: string) => {
+  const fetchMoreData = (currentTabKey: number) => {
     if(currentTabKey !== tabKey){
       // prevent trigger the fetch more with the unactive infinite scroll
       // https://stackoverflow.com/questions/54711042/how-to-prevent-infinite-scroll-from-loading-pages-when-the-tab-is-not-active
@@ -287,17 +265,17 @@ const Index: React.FC = (props) => {
       pageSize: pageSize,
       offset: Math.max(...offset)
     };
-    if(currentTabKey === "1"){
+    if(currentTabKey === 1){
       articleService.getRecommandArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
     }
-    if(currentTabKey === "2"){
+    if(currentTabKey === 2){
       articleService.getOfficialArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
     }
-    if(currentTabKey === "3"){
+    if(currentTabKey === 3){
       articleService.getOriginalArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
@@ -317,7 +295,7 @@ const Index: React.FC = (props) => {
     }
     return (<InfiniteScroll
       dataLength={localArticle.size} 
-      next={fetchMoreData.bind(this,currentTabKey)}
+      next={fetchMoreData.bind(this,Number(currentTabKey))}
       hasMore={true}
       loader={<h4><Spin /></h4>}
       endMessage={
@@ -374,7 +352,7 @@ const Index: React.FC = (props) => {
                   </div>
                 </div>
                 <div className="tab-content" data-tab-index="5">
-                    <Panel></Panel>
+                    <Panel panelUserInfo={userInfo}></Panel>
                 </div>
             </div>
             <Footer></Footer>

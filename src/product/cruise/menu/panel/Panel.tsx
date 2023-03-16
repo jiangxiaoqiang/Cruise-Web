@@ -2,11 +2,15 @@ import { Avatar, Button, Card, Col, Input, Row } from "antd";
 import React, { useRef } from "react";
 import './Panel.css';
 import pic from '@/resource/img/alipay-circle.png';
-import { getCurrentUser } from '@/service/user/UserService';
 import { connect } from "react-redux";
 import { getCurrentUserAction } from "@/action/user/UserAction";
+import { IUserModel } from "@/models/user/UserModel";
 
-const Panel: React.FC = (props:any) => {
+export type PanelProps = {
+  panelUserInfo: IUserModel|undefined;
+};
+
+const Panel: React.FC<PanelProps> = (props:any) => {
   const buttonRef = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -28,25 +32,13 @@ const Panel: React.FC = (props:any) => {
         if(document){
 				  document.getElementById(targetPageId!)!.style.display = 'block';
         }
-        if(targetPageId === 'userinfo'){
-          //loadCurrentUser();
-        }
 			});
 		});
     buttonRef.current!.click();
   })
 
-  const loadCurrentUser=()=>{
-    const userInfo = localStorage.getItem('userInfo');
-    if(userInfo){
-      return;
-    }
-    getCurrentUser();
-  }
+  const userInfo = props.panelUserInfo;
 
-  const userJson:any = localStorage.getItem('userInfo');
-  const userInfo = JSON.parse(userJson);
-   
   return (
     <div className="panel-container">
       <div className="panel-menu">
