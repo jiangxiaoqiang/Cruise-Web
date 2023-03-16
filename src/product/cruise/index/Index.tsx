@@ -50,7 +50,7 @@ const Index: React.FC = (props) => {
   }, []);
 
   const loadCurrentUser = () => {
-    if(!localStorage.getItem("userInfo") && isLoggedIn){
+    if(!localStorage.getItem("userInfo")){
       getCurrentUser().then((data)=>{
         localStorage.setItem("userInfo",JSON.stringify(data.result));
       });
