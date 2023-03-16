@@ -19,6 +19,7 @@ import { PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/ico
 const Index: React.FC = (props) => {
 
   const [pageNum, setPageNum] = useState(1);
+  const [isGetUserLoading, setIsGetUserLoading] = useState(false);
   const [pageSize] = useState(20);
   const [offset, setOffset] = useState(new Map<string, number>());
   const [tabKey, setTabKey] = useState("1");
@@ -49,9 +50,11 @@ const Index: React.FC = (props) => {
   }, []);
 
   const loadCurrentUser = () => {
-    if(!localStorage.getItem("userInfo")){
+    if(!localStorage.getItem("userInfo") && isGetUserLoading === false){
+      setIsGetUserLoading(true);
       getCurrentUser().then((data)=>{
         localStorage.setItem("userInfo",JSON.stringify(data.result));
+        setIsGetUserLoading(false);
       });
     }
   }
