@@ -16,6 +16,10 @@ export function doLoginOut() {
     localStorage.removeItem('cruiseRefreshToken');
     localStorage.removeItem('avatarUrl');
     localStorage.removeItem('userInfo');
+
+    document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'avatarUrl=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     window.location.href="https://read.poemhub.top";
 }
 
