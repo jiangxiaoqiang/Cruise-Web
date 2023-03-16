@@ -6,14 +6,14 @@ import * as articleService  from '../../../service/ArticleService';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import About from '../about/About';
 import { useSelector } from 'react-redux'
-import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles, login } from '../../../action/ArticleAction';
+import { clearArticles, getArticle, getOfficialArticles, getRecommandArticles, login } from '@/action/ArticleAction';
 import store from "../../../store";
 import TimeUtils from "js-wheel/dist/src/utils/time/time";
 import Footer  from '../../../component/footer/Footer';
 import Pay from '../../pay/Pay';
 import Panel from '../menu/panel/Panel';
 import { doLoginOut, getCurrentUser } from '@/service/user/UserService';
-import { UserOutlined, PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';
+import { PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';
 
 
 const Index: React.FC = (props) => {
@@ -50,7 +50,7 @@ const Index: React.FC = (props) => {
   }, []);
 
   const loadCurrentUser = () => {
-    if(!localStorage.getItem("userInfo")){
+    if(!localStorage.getItem("userInfo") && isLoggedIn){
       getCurrentUser().then((data)=>{
         localStorage.setItem("userInfo",JSON.stringify(data.result));
       });
@@ -58,9 +58,6 @@ const Index: React.FC = (props) => {
   }
 
   const tabsTrigger = () => {
-    // 显示初始选项卡
-    //showTab(0);
-
     // 绑定选项卡的点击事件
     var tabs = document.getElementsByClassName("tab");
     for (var i = 0; i < tabs.length; i++) {
@@ -223,6 +220,7 @@ const Index: React.FC = (props) => {
       localStorage.setItem('cruiseAccessToken', accessTokenCookie);
       localStorage.setItem('cruiseRefreshToken', refreshTokenCookie?refreshTokenCookie:"");
       localStorage.setItem('avatarUrl',avatarUrlCookie?avatarUrlCookie:"");
+      setIsLoggedIn(true);
     }
     return (<div><Button name='cruiseLoginBtn' onClick={userLogin}>登录</Button></div>);
   }
