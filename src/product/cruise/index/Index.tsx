@@ -28,7 +28,6 @@ const Index: React.FC = (props) => {
 
   React.useEffect(() => {
     tabsTrigger();
-    loadCurrentUser();
     let params = {
       pageSize : pageSize,
       pageNum: 1
@@ -50,7 +49,7 @@ const Index: React.FC = (props) => {
   }, []);
 
   const loadCurrentUser = () => {
-    if(!localStorage.getItem("userInfo") && isLoggedIn){
+    if(!localStorage.getItem("userInfo")){
       getCurrentUser().then((data)=>{
         localStorage.setItem("userInfo",JSON.stringify(data.result));
       });
@@ -220,6 +219,7 @@ const Index: React.FC = (props) => {
       localStorage.setItem('cruiseAccessToken', accessTokenCookie);
       localStorage.setItem('cruiseRefreshToken', refreshTokenCookie?refreshTokenCookie:"");
       localStorage.setItem('avatarUrl',avatarUrlCookie?avatarUrlCookie:"");
+      loadCurrentUser();
       setIsLoggedIn(true);
     }
     return (<div><Button name='cruiseLoginBtn' onClick={userLogin}>登录</Button></div>);
