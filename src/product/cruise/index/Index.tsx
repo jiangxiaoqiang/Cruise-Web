@@ -24,7 +24,7 @@ const Index: React.FC = (props) => {
   const [userInfo, setUserInfo] = useState<IUserModel>();
   const [pageSize] = useState(20);
   const [offset, setOffset] = useState(new Map<string, number>());
-  const [tabKey, setTabKey] = useState(0);
+  const [tabKey, setTabKey] = useState<number>(1);
   const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
@@ -103,7 +103,7 @@ const Index: React.FC = (props) => {
       let params = {
         pageSize : 20,
         pageNum: 1,
-        offset: offset.get('recommand')
+        offset: Number(offset.get('recommand'))>0?offset.get('recommand'):0
       };
       articleService.getRecommandArticlesImpl(params).then((data) => {
         if(offset.get('recommand')){
@@ -260,7 +260,7 @@ const Index: React.FC = (props) => {
   }
 
   const fetchMoreData = (currentTabKey: number) => {
-    if(currentTabKey !== tabKey){
+    if(currentTabKey !== Number(tabKey)){
       // prevent trigger the fetch more with the unactive infinite scroll
       // https://stackoverflow.com/questions/54711042/how-to-prevent-infinite-scroll-from-loading-pages-when-the-tab-is-not-active
       return;
@@ -297,7 +297,7 @@ const Index: React.FC = (props) => {
 
   let items: JSX.Element[] = Array.from(localArticle.values());
 
-  const renderList = (items: JSX.Element[], currentTabKey: string) => {
+  const renderList = (items: JSX.Element[], currentTabKey: number) => {
     if(items.length === 0){
       return (<div><Spin /></div>);
     }
@@ -343,13 +343,13 @@ const Index: React.FC = (props) => {
 
             <div className="tab-content-container">
                 <div className="tab-content active" data-tab-index="0">
-                  {renderList(items,"1")}
+                  {renderList(items,1)}
                 </div>
                 <div className="tab-content" data-tab-index="1">
-                  {renderList(items,"2")}
+                  {renderList(items,2)}
                 </div>
                 <div className="tab-content" data-tab-index="2">
-                  {renderList(items,"3")}
+                  {renderList(items,3)}
                 </div>
                 <div className="tab-content" data-tab-index="3">
                   <About></About>

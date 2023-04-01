@@ -36,6 +36,7 @@ macOS启动重启nginx:
 ```bash
 # 启动nginx
 brew services start nginx
+/opt/homebrew/opt/nginx/bin/nginx -c /System/Volumes/Data/opt/homebrew/etc/nginx/nginx.conf
 # 重启nginx
 brew services restart nginx
 # 重新加载配置
