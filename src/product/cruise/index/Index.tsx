@@ -103,7 +103,7 @@ const Index: React.FC = (props) => {
       let params = {
         pageSize : 20,
         pageNum: 1,
-        offset: Number(offset.get('recommand'))>0?offset.get('recommand'):0
+        offset: Number(offset.get('recommand'))>0?offset.get('recommand'):null
       };
       articleService.getRecommandArticlesImpl(params).then((data) => {
         if(offset.get('recommand')){
