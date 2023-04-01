@@ -24,7 +24,7 @@ const Index: React.FC = (props) => {
   const [userInfo, setUserInfo] = useState<IUserModel>();
   const [pageSize] = useState(20);
   const [offset, setOffset] = useState(new Map<string, number>());
-  const [tabKey, setTabKey] = useState<number>(1);
+  const [tabKey, setTabKey] = useState<number>(0);
   const [localArticle, setLocalArticle] = useState(new Map<string, any>());
   let articles = useSelector((state: RootStateOrAny) => state.article);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') || false);
@@ -343,13 +343,13 @@ const Index: React.FC = (props) => {
 
             <div className="tab-content-container">
                 <div className="tab-content active" data-tab-index="0">
-                  {renderList(items,1)}
+                  {renderList(items,0)}
                 </div>
                 <div className="tab-content" data-tab-index="1">
-                  {renderList(items,2)}
+                  {renderList(items,1)}
                 </div>
                 <div className="tab-content" data-tab-index="2">
-                  {renderList(items,3)}
+                  {renderList(items,2)}
                 </div>
                 <div className="tab-content" data-tab-index="3">
                   <About></About>
