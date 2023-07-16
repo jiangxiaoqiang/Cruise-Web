@@ -260,7 +260,8 @@ const Index: React.FC = (props) => {
   }
 
   const fetchMoreData = (currentTabKey: number) => {
-    if(currentTabKey !== Number(tabKey)){
+    const curTab = (currentTabKey !== Number(tabKey));
+    if(curTab){
       // prevent trigger the fetch more with the unactive infinite scroll
       // https://stackoverflow.com/questions/54711042/how-to-prevent-infinite-scroll-from-loading-pages-when-the-tab-is-not-active
       return;
@@ -273,17 +274,17 @@ const Index: React.FC = (props) => {
       pageSize: pageSize,
       offset: Math.max(...offset)
     };
-    if(currentTabKey === 1){
+    if(currentTabKey === 0){
       articleService.getRecommandArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
     }
-    if(currentTabKey === 2){
+    if(currentTabKey === 1){
       articleService.getOfficialArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
     }
-    if(currentTabKey === 3){
+    if(currentTabKey === 2){
       articleService.getOriginalArticlesImpl(params).then(()=>{
         setPageNum(newPageNum);
       });
