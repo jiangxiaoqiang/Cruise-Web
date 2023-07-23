@@ -3,17 +3,6 @@ import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import autoprefixer from 'autoprefixer';
 import { visualizer } from "rollup-plugin-visualizer";
-import { dependencies } from './package.json'
-
-const exclVendors = ['react', 'react-router-dom', 'react-dom'];
-function renderChunks(deps: Record<string, string>) {
-  let chunks = {}
-  Object.keys(deps).forEach((key) => {
-    if (exclVendors.includes(key)) return
-    chunks[key] = [key]
-  })
-  return chunks
-}
 
 export default defineConfig({
   plugins: [
@@ -34,12 +23,22 @@ export default defineConfig({
     }
   },
   build: {
-    sourcemap: false,
     outDir: "build",
     rollupOptions: {
       output: {
-        manualChunks: {
-          ...renderChunks(dependencies),
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) {
+              return 'react';
+            }
+            if (id.includes('react-dom')) {
+              return 'react-dom';
+            }
+            if (id.includes('react-router-dom')) {
+              return 'react-router-dom';
+            }
+            return 'vendor';
+          }
         }
       }
     }
