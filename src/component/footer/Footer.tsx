@@ -2,7 +2,7 @@ import './Footer.css';
 import React from "react";
 import { Col, Divider, Row } from 'antd';
 
-const Footer: React.FC = (props) => {
+const Footer: React.FC = () => {
 
   let yearNow = new Date().toISOString().substr(0,4);
 

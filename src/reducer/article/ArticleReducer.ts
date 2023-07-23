@@ -1,9 +1,8 @@
-
 const initState = {
     article: {}
 };
 
-const ArticleReducer = (state=initState, action) => {
+const ArticleReducer = (state=initState, action:any) => {
     switch (action.type) {
         case "GET_ARTICLE":
             state = action.article;

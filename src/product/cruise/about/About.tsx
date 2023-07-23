@@ -2,7 +2,7 @@ import { Typography } from "antd";
 import React from "react";
 const { Paragraph} = Typography;
 
-const About: React.FC = (props) => {
+const About: React.FC = () => {
   return (
     <Typography>
       <Paragraph>

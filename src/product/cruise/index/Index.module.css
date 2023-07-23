@@ -30,7 +30,7 @@
 }
 
 /* 选项卡容器 */
-.tab-container {
+.tabContainer {
   display: flex;
   align-items: center;
   background-color: #f6f7f9;
@@ -56,7 +56,7 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   margin-right: 12px;
-  font-size: 25px;
+  font-size: 18px;
 }
 
 /* 当前选项卡样式 */
@@ -67,7 +67,7 @@
 }
 
 /* 选项卡内容容器样式 */
-.tab-content-container {
+.tabContentContainer {
   padding: 16px;
   background-color: #fff;
   border-radius: 4px;
@@ -77,20 +77,20 @@
 }
 
 /* 选项卡内容样式 */
-.tab-content {
+.tabContent {
   display: none;
 }
 
 /* 显示当前选项卡内容 */
-.tab-content.active {
+.tabContent.active {
   display: block;
 }
 
-.user-login {
+.userLogin {
   margin-left: auto;
 }
 
-.custom-row {
+.customRow {
   margin-bottom: 10px; /* 设置行与行之间的垂直间距 */
 }
 

@@ -5,6 +5,7 @@ import { getArticleImpl } from '../../../service/ArticleService';
 import './Share.css';
 import DOMPurify from 'dompurify';
 import pic from '../../../resource/img/logo192.png';
+import { withConnect } from "rd-component";
 
 class Share extends Component{
 
@@ -57,16 +58,4 @@ class Share extends Component{
   }
 }
 
-const mapStateToProps = state => ({
-  article: state.article
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getArticle: (article) => {
-      dispatch(getArticle(article))
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Share);
+export default withConnect(Share);

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { getCurrentUserAction } from "@/action/user/UserAction";
 import { IUserModel } from "@/models/user/UserModel";
 import { submitFeedback } from "@/service/user/FeedbackService";
+import { withConnect } from "rd-component";
 
 export type PanelProps = {
   panelUserInfo: IUserModel|undefined;
@@ -21,10 +22,10 @@ const Panel: React.FC<PanelProps> = (props:any) => {
 
   React.useEffect(() => {
 		const menuItems = document.querySelectorAll('.menu-item');
-		const pages = document.querySelectorAll('.panel-content > div');
+		const pages:NodeListOf<HTMLDivElement>  = document.querySelectorAll('.panel-content > div');
 		menuItems.forEach(item => {
 			item.addEventListener('click', (e) => {
-				pages.forEach(page => {
+				pages.forEach((page:HTMLDivElement) => {
 					page.style.display = 'none';
 				});
 				const targetPageId = item.getAttribute('data-target');
@@ -93,17 +94,5 @@ const Panel: React.FC<PanelProps> = (props:any) => {
   );
 }
 
-const mapStateToProps = (state:any) => ({
-  user: state.user
-});
-
-const mapDispatchToProps = (dispatch:any) => {
-  return {
-    getCurrentUser: (user:any) => {
-      dispatch(getCurrentUserAction(user))
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Panel);
+export default withConnect(Panel);
 
