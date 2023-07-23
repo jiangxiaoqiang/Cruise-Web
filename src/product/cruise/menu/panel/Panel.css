@@ -24,7 +24,7 @@
 }
 
 .menu-item span {
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 500;
     margin-left: 20px;
     align-items: center;
@@ -36,7 +36,7 @@
 }
 
 .user-info {
-    font-size: 23px;
+    font-size: 16px;
     margin-top: 10px;
 }
 
