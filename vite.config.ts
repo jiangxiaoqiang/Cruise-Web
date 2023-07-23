@@ -1,11 +1,20 @@
-import { defineConfig } from 'vite';
+import { PluginOption, defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import autoprefixer from 'autoprefixer';
+import { visualizer } from "rollup-plugin-visualizer";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    visualizer({
+      gzipSize: true,
+      brotliSize: true,
+      emitFile: false,
+      filename: "test.html",
+      open:true 
+    }) as PluginOption
+  ],
   css: {
     postcss: {
       plugins: [
