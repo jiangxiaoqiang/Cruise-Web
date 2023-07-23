@@ -124,6 +124,15 @@
   }
 }
 
+.articleItem {
+  height: 65px;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid lightgray;
+  justify-content: center;
+  align-items: center;
+}
+
 /** 网站变灰，重大悼念活动时使用 **/
 /**
 html {

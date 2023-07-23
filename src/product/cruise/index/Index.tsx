@@ -7,13 +7,14 @@ import About from '../about/About';
 import { useSelector } from 'react-redux'
 import { clearArticles } from '@/action/ArticleAction';
 import store from "../../../store";
-import { TimeUtils } from "rdjs-wheel";
+import { AuthHandler, TimeUtils } from "rdjs-wheel";
 import Panel from '../menu/panel/Panel';
 import { doLoginOut, getCurrentUser } from '@/service/user/UserService';
 import { PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';
 import { IUserModel } from '@/models/user/UserModel';
 import { Footer, Goods, withConnect } from "rd-component";
 import { readConfig } from '@/config/app/config-reader';
+import "@/scss/style.scss";
 
 const Index: React.FC = () => {
 
@@ -190,14 +191,8 @@ const Index: React.FC = () => {
       }
     }
     const accessTokenOrigin = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
-    if (accessTokenOrigin && localStorage.getItem('cruiseAccessToken') == null) {
-      const accessTokenCookie = accessTokenOrigin.split("=")[1];
-      const refreshTokenCookie = document.cookie.split('; ').find(row => row.startsWith('refreshToken='))?.split("=")[1];
-      const avatarUrlCookie = document.cookie.split('; ').find(row => row.startsWith('avatarUrl='))?.split("=")[1];
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('cruiseAccessToken', accessTokenCookie);
-      localStorage.setItem('cruiseRefreshToken', refreshTokenCookie ? refreshTokenCookie : "");
-      localStorage.setItem('avatarUrl', avatarUrlCookie ? avatarUrlCookie : "");
+    if (accessTokenOrigin) {
+      AuthHandler.storeCookieAuthInfo(accessTokenOrigin, readConfig("baseAuthUrl"), readConfig("accessTokenUrlPath"));
       loadCurrentUser();
       setIsLoggedIn(true);
     }
@@ -210,7 +205,7 @@ const Index: React.FC = () => {
       articleArray.forEach(article => {
         if (!localArticle.has(article.title)) {
           var articleDom: JSX.Element = (<div key={article.id}>
-            <div>
+            <div className={`${styles.articleItem} 'list-group-item d-flex justify-content-between align-items-start'` }>
               <div>
                 <div style={{ fontSize: 15, fontWeight: 'bold' }}>
                   <a href={article.link} target="_blank" rel="noreferrer">{article.title}</a>
@@ -305,10 +300,10 @@ const Index: React.FC = () => {
       refreshFunction={refreshArticles}
       pullDownToRefresh={true}
       pullDownToRefreshContent={
-        <h5 style={{ textAlign: 'center' }}>↓下拉刷新</h5>
+        <div style={{ textAlign: 'center' }}>↓下拉刷新</div>
       }
       releaseToRefreshContent={
-        <h5 style={{ textAlign: 'center' }}>↑松开刷新</h5>
+        <div style={{ textAlign: 'center' }}>↑松开刷新</div>
       }>
       {items}
     </InfiniteScroll>);
