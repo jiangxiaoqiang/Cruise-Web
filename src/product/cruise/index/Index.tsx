@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Avatar, Button, Col, Divider, Dropdown, Menu, Row, Spin } from 'antd';
 import styles from './Index.module.css';
 import { RootStateOrAny } from 'react-redux';
 import * as articleService from '../../../service/ArticleService';
@@ -162,15 +161,15 @@ const Index: React.FC = () => {
   }
 
   const menuItems = [
-    <Menu.Item onClick={handleCruisePro} key="1" icon={<PayCircleOutlined />} style={{ fontSize: '16px' }}>
+    <div onClick={handleCruisePro} key="1"  style={{ fontSize: '16px' }}>
       <span>Cruise Pro</span>
-    </Menu.Item>,
-    <Menu.Item onClick={handleControlPanel} key="2" icon={<ToolOutlined />} style={{ fontSize: '16px' }}>
+    </div>,
+    <div onClick={handleControlPanel} key="2" style={{ fontSize: '16px' }}>
       <span>控制台</span>
-    </Menu.Item>,
-    <Menu.Item onClick={handleLogout} key="3" icon={<LogoutOutlined />} style={{ fontSize: '16px' }}>
+    </div>,
+    <div onClick={handleLogout} key="3"  style={{ fontSize: '16px' }}>
       <span>登出</span>
-    </Menu.Item>
+    </div>
   ];
 
   const renderLogin = () => {
@@ -178,15 +177,15 @@ const Index: React.FC = () => {
       var avatarUrl = localStorage.getItem('avatarUrl');
       if (avatarUrl) {
         return (<div>
-          <Dropdown overlay={<Menu>{menuItems}</Menu>} trigger={['click']}>
-            <Avatar size={40} src={avatarUrl} />
-          </Dropdown>
+          <div>
+            <img src={avatarUrl} />
+          </div>
         </div>);
       } else {
         return (<div>
-          <Dropdown overlay={<Menu>{menuItems}</Menu>} trigger={['click']}>
-            <Avatar size={40} >Me</Avatar>
-          </Dropdown>
+          <div>
+            <img ></img>
+          </div>
         </div>);
       }
     }
@@ -202,7 +201,7 @@ const Index: React.FC = () => {
       loadCurrentUser();
       setIsLoggedIn(true);
     }
-    return (<div><Button onClick={userLogin}>登录</Button></div>);
+    return (<div><button onClick={userLogin}>登录</button></div>);
   }
 
   const renderArticles = (articleArray: API.ArticleListItem[]) => {
@@ -211,17 +210,17 @@ const Index: React.FC = () => {
       articleArray.forEach(article => {
         if (!localArticle.has(article.title)) {
           var articleDom: JSX.Element = (<div key={article.id}>
-            <Row>
-              <Col>
+            <div>
+              <div>
                 <div style={{ fontSize: 15, fontWeight: 'bold' }}>
                   <a href={article.link} target="_blank" rel="noreferrer">{article.title}</a>
                 </div>
-              </Col>
-              <Col>
+              </div>
+              <div>
                 <div style={{ verticalAlign: 'middle', color: '#789', marginLeft: 16, fontSize: 13, fontWeight: '500' }}>{TimeUtils.getPrevFormattedTime(parseInt(article.createdTime))}</div>
-              </Col>
-            </Row>
-            <Divider></Divider>
+              </div>
+            </div>
+            <div></div>
           </div>);
           elements.set(article.title, articleDom);
         }
@@ -291,13 +290,13 @@ const Index: React.FC = () => {
 
   const renderList = (items: JSX.Element[], currentTabKey: number) => {
     if (items.length === 0) {
-      return (<div><Spin /></div>);
+      return (<div></div>);
     }
     return (<InfiniteScroll
       dataLength={localArticle.size}
       next={fetchMoreData.bind(this, Number(currentTabKey))}
       hasMore={true}
-      loader={<h4><Spin /></h4>}
+      loader={<h4></h4>}
       endMessage={
         <p style={{ textAlign: 'center' }}>
           <b>没有更多</b>

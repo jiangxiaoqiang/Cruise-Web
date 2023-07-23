@@ -1,4 +1,3 @@
-import { Avatar, Card, Col, Input, Row } from "antd";
 import React, { useRef, useState } from "react";
 import styles from './Panel.module.css';
 import "@/scss/style.scss";
@@ -8,36 +7,36 @@ import { submitFeedback } from "@/service/user/FeedbackService";
 import { withConnect } from "rd-component";
 
 export type PanelProps = {
-  panelUserInfo: IUserModel|undefined;
+  panelUserInfo: IUserModel | undefined;
 };
 
-const Panel: React.FC<PanelProps> = (props:any) => {
+const Panel: React.FC<PanelProps> = (props: any) => {
   const buttonRef = useRef<HTMLDivElement>(null);
   const [feedbackValue, setFeedbackValue] = useState('');
 
-  function handleInputChange(event:any) {
+  function handleInputChange(event: any) {
     setFeedbackValue(event.target.value);
   }
 
   React.useEffect(() => {
-		const menuItems = document.querySelectorAll('.menu-item');
-		const pages:NodeListOf<HTMLDivElement>  = document.querySelectorAll('.panel-content > div');
-		menuItems.forEach(item => {
-			item.addEventListener('click', (e) => {
-				pages.forEach((page:HTMLDivElement) => {
-					page.style.display = 'none';
-				});
-				const targetPageId = item.getAttribute('data-target');
-        if(document){
-				  document.getElementById(targetPageId!)!.style.display = 'block';
+    const menuItems = document.querySelectorAll('.menu-item');
+    const pages: NodeListOf<HTMLDivElement> = document.querySelectorAll('.panel-content > div');
+    menuItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        pages.forEach((page: HTMLDivElement) => {
+          page.style.display = 'none';
+        });
+        const targetPageId = item.getAttribute('data-target');
+        if (document) {
+          document.getElementById(targetPageId!)!.style.display = 'block';
         }
-			});
-		});
+      });
+    });
     buttonRef.current!.click();
-  },[])
+  }, [])
 
   const handleFeedback = () => {
-    if(feedbackValue==null||feedbackValue.length==0) {
+    if (feedbackValue == null || feedbackValue.length == 0) {
       return;
     }
     const params = {
@@ -54,37 +53,37 @@ const Panel: React.FC<PanelProps> = (props:any) => {
     <div className={styles.panelContainer}>
       <div className={styles.panelMenu}>
         <div className={styles.menuItem} data-target="userinfo" id="userinfo-menu" ref={buttonRef}><span>用户信息</span></div>
-         <div className={styles.menuItem} data-target="feedback"><span>意见与建议</span></div>
+        <div className={styles.menuItem} data-target="feedback"><span>意见与建议</span></div>
       </div>
       <div className={styles.panelContent}>
-        <div id="userinfo" style={{display:'None'}}>
-          <Card title="基本信息" style={{ marginBottom: '20px' }}>
-            <Row style={{ marginTop: '10px', marginBottom: '20px' }}>
-              <Col span={8}><span className="user-info">用户昵称</span></Col>
-              <Col span={8}><span className="user-info">{userInfo?userInfo!.nickname:""}</span></Col>
-              <Col span={8}></Col>
-            </Row>
-            <Row style={{ marginTop: '10px', marginBottom: '10px' }}>
-              <Col span={8}><span className="user-info">会员到期日</span></Col>
-              <Col span={8}><span className="user-info">{userInfo&&userInfo.autoRenewProductExpireTimeMs?userInfo.autoRenewProductExpireTimeMs:"--"}</span></Col>
-              <Col span={8}></Col>
-            </Row>
-          </Card>
-          <Card title="登录凭据">
-            <Row style={{ marginTop: '10px', marginBottom: '10px' }}>
-              <Col span={8}>
-                <Avatar src={pic}></Avatar>
-              </Col>
-              <Col span={8}><span>已绑定</span></Col>
-              <Col span={8}><span></span></Col>
-            </Row>
-          </Card>
+        <div id="userinfo" style={{ display: 'None' }}>
+          <div title="基本信息" style={{ marginBottom: '20px' }}>
+            <div style={{ marginTop: '10px', marginBottom: '20px' }}>
+              <div ><span className="user-info">用户昵称</span></div>
+              <div ><span className="user-info">{userInfo ? userInfo!.nickname : ""}</span></div>
+              <div ></div>
+            </div>
+            <div style={{ marginTop: '10px', marginBottom: '10px' }}>
+              <div ><span className="user-info">会员到期日</span></div>
+              <div ><span className="user-info">{userInfo && userInfo.autoRenewProductExpireTimeMs ? userInfo.autoRenewProductExpireTimeMs : "--"}</span></div>
+              <div ></div>
+            </div>
+          </div>
+          <div title="登录凭据">
+            <div style={{ marginTop: '10px', marginBottom: '10px' }}>
+              <div >
+                <img src={pic}></img>
+              </div>
+              <div ><span>已绑定</span></div>
+              <div ><span></span></div>
+            </div>
+          </div>
         </div>
-        <div id="feedback" style={{display:'None'}}>
+        <div id="feedback" style={{ display: 'None' }}>
           <p>您可以反馈使用问题、建议，也可以发送想看的内容领域、信源给我们。</p>
           <div>
-            <Input onChange={handleInputChange} placeholder="请输入反馈内容"></Input>
-            <button onClick={handleFeedback} style={{ height: '40px',width: '40px'}} className="btn btn-primary">提交反馈</button>
+            <input onChange={handleInputChange} placeholder="请输入反馈内容"></input>
+            <button onClick={handleFeedback} style={{ height: '40px', width: '40px' }} className="btn btn-primary">提交反馈</button>
           </div>
         </div>
       </div>
