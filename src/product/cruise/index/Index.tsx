@@ -306,10 +306,10 @@ const Index: React.FC = () => {
       refreshFunction={refreshArticles}
       pullDownToRefresh={true}
       pullDownToRefreshContent={
-        <h3 style={{ textAlign: 'center' }}>↓下拉刷新</h3>
+        <h5 style={{ textAlign: 'center' }}>↓下拉刷新</h5>
       }
       releaseToRefreshContent={
-        <h3 style={{ textAlign: 'center' }}>↑松开刷新</h3>
+        <h5 style={{ textAlign: 'center' }}>↑松开刷新</h5>
       }>
       {items}
     </InfiniteScroll>);
