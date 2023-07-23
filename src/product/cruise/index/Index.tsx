@@ -8,7 +8,7 @@ import About from '../about/About';
 import { useSelector } from 'react-redux'
 import { clearArticles } from '@/action/ArticleAction';
 import store from "../../../store";
-import TimeUtils from "js-wheel/dist/src/utils/time/time";
+import { TimeUtils } from "rdjs-wheel";
 import Panel from '../menu/panel/Panel';
 import { doLoginOut, getCurrentUser } from '@/service/user/UserService';
 import { PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';

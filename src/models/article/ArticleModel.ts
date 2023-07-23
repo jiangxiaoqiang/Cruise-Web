@@ -1,10 +1,10 @@
 
-import { REST } from 'js-wheel';
+import { Pagination } from 'rdjs-wheel';
 
 export interface IArticleState {
     data: API.ArticleListItem[],
     recommandArticle: API.ArticleListItem,
-    pagination: REST.Pagination,
+    pagination: Pagination,
     maxOffset: number
 }
 
