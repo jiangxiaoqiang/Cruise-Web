@@ -27,7 +27,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          react: ['react','react-router-dom','react-dom']
+          react: ['react','react-router-dom','react-dom','react-router'],
+          reddwarf: ['rd-component','rdjs-wheel']
         }
       }
     }
