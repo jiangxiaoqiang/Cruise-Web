@@ -16,9 +16,9 @@ jobs:
       - name: Build React App
         run: |
           git config --global url."https://github".insteadOf ssh://git@github 
-          npm install yarn -g
-          yarn
-          yarn build
+          npm install pnpm -g
+          pnpm install
+          pnpm run build
 
       - name: Build image push to aliyun
         uses: docker/build-push-action@v1

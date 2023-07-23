@@ -278,3 +278,6 @@ declare namespace API {
     type?: NoticeIconItemType;
   };
 }
+
+declare module "*.module.css";
+
