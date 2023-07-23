@@ -1,6 +1,7 @@
-import { Avatar, Button, Card, Col, Input, Row } from "antd";
+import { Avatar, Card, Col, Input, Row } from "antd";
 import React, { useRef, useState } from "react";
-import './Panel.css';
+import styles from './Panel.module.css';
+import "@/scss/style.scss";
 import pic from '@/resource/img/alipay-circle.png';
 import { IUserModel } from "@/models/user/UserModel";
 import { submitFeedback } from "@/service/user/FeedbackService";
@@ -27,7 +28,6 @@ const Panel: React.FC<PanelProps> = (props:any) => {
 					page.style.display = 'none';
 				});
 				const targetPageId = item.getAttribute('data-target');
-        
         if(document){
 				  document.getElementById(targetPageId!)!.style.display = 'block';
         }
@@ -51,12 +51,12 @@ const Panel: React.FC<PanelProps> = (props:any) => {
   const userInfo = props.panelUserInfo;
 
   return (
-    <div className="panel-container">
-      <div className="panel-menu">
-        <div className="menu-item" data-target="userinfo" id="userinfo-menu" ref={buttonRef}><span>用户信息</span></div>
-         <div className="menu-item" data-target="feedback"><span>意见与建议</span></div>
+    <div className={styles.panelContainer}>
+      <div className={styles.panelMenu}>
+        <div className={styles.menuItem} data-target="userinfo" id="userinfo-menu" ref={buttonRef}><span>用户信息</span></div>
+         <div className={styles.menuItem} data-target="feedback"><span>意见与建议</span></div>
       </div>
-      <div className="panel-content">
+      <div className={styles.panelContent}>
         <div id="userinfo" style={{display:'None'}}>
           <Card title="基本信息" style={{ marginBottom: '20px' }}>
             <Row style={{ marginTop: '10px', marginBottom: '20px' }}>
@@ -84,7 +84,7 @@ const Panel: React.FC<PanelProps> = (props:any) => {
           <p>您可以反馈使用问题、建议，也可以发送想看的内容领域、信源给我们。</p>
           <div>
             <Input onChange={handleInputChange} placeholder="请输入反馈内容"></Input>
-            <Button onClick={handleFeedback} className="feedback-submit">提交反馈</Button>
+            <button onClick={handleFeedback} style={{ height: '40px',width: '40px'}} className="btn btn-primary">提交反馈</button>
           </div>
         </div>
       </div>

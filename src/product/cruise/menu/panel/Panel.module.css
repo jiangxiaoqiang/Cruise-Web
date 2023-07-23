@@ -1,16 +1,16 @@
-.panel-container {
+.panelContainer {
     display: flex;
     flex-direction: row;
     height: 100vh;
     overflow: hidden;
 }
 
-.panel-menu {
+.panelMenu {
     flex: 0 0 200px;
     border-right: 1px solid rgb(218, 215, 215);
 }
 
-.menu-item {
+.menuItem {
     display: flex;
     cursor: pointer;
     margin-top: 20px;
@@ -19,33 +19,38 @@
     align-items: center;
 }
 
-.menu-item:hover {
+.menuItem:hover {
     background-color: lightgray;
 }
 
-.menu-item span {
+.menuItem span {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     margin-left: 20px;
     align-items: center;
 }
 
-.panel-content {
+.panelContent {
     flex: 1;
     padding: 20px;
 }
 
-.user-info {
+.userInfo {
     font-size: 16px;
     margin-top: 10px;
 }
 
-.feedback-submit {
+.feedbackSubmit {
     padding: 12px 24px;
     background-color: #418ed8;
     border-radius: 4px;
     color: #fff;
     cursor: pointer;
     transition: opacity .25s ease;
-    height: 60px;
+    height: 20px;
+}
+
+.btnsize {
+    width: 40px;
+    height: 40px;
 }
