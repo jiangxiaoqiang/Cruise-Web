@@ -13,7 +13,8 @@ import Panel from '../menu/panel/Panel';
 import { doLoginOut, getCurrentUser } from '@/service/user/UserService';
 import { PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';
 import { IUserModel } from '@/models/user/UserModel';
-import { Footer, withConnect } from "rd-component";
+import { Footer, Goods, withConnect } from "rd-component";
+import { readConfig } from '@/config/app/config-reader';
 
 const Index: React.FC = () => {
 
@@ -321,7 +322,7 @@ const Index: React.FC = () => {
         </div>
         <div className={styles.center}>
           <div className={styles.tabContainer}>
-            <div className={styles.tab} data-tab-index="0">编辑推荐</div>
+            <div className={`${styles.tab} ${styles.active}`} data-tab-index="0">编辑推荐</div>
             <div className={styles.tab} data-tab-index="1">权威资讯</div>
             <div className={styles.tab} data-tab-index="2">原始资讯</div>
             <div className={styles.tab} data-tab-index="3">关于Cruise</div>
@@ -346,7 +347,7 @@ const Index: React.FC = () => {
               <About></About>
             </div>
             <div className={styles.tabContent} data-tab-index="4">
-
+              <Goods store={store} appId={readConfig("appId")}></Goods>
             </div>
             <div className={styles.tabContent} data-tab-index="5">
               <Panel panelUserInfo={userInfo}></Panel>

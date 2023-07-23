@@ -1,9 +1,7 @@
 import { Avatar, Button, Card, Col, Input, Row } from "antd";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import './Panel.css';
 import pic from '@/resource/img/alipay-circle.png';
-import { connect } from "react-redux";
-import { getCurrentUserAction } from "@/action/user/UserAction";
 import { IUserModel } from "@/models/user/UserModel";
 import { submitFeedback } from "@/service/user/FeedbackService";
 import { withConnect } from "rd-component";
@@ -95,4 +93,3 @@ const Panel: React.FC<PanelProps> = (props:any) => {
 }
 
 export default withConnect(Panel);
-
