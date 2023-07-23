@@ -347,16 +347,15 @@ const Index: React.FC = () => {
               <About></About>
             </div>
             <div className={styles.tabContent} data-tab-index="4">
-              <Goods store={store} appId={readConfig("appId")}></Goods>
+              <Goods refreshUrl={readConfig("refreshUserUrl")} appId={readConfig("appId")} store={store}></Goods>
             </div>
             <div className={styles.tabContent} data-tab-index="5">
               <Panel panelUserInfo={userInfo}></Panel>
             </div>
           </div>
-
         </div>
         <div className={styles.right}>
-        </div>  
+        </div>
       </div>
       <Footer></Footer>
     </div>
