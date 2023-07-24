@@ -207,8 +207,8 @@ const Index: React.FC = () => {
           var articleDom: JSX.Element = (<div key={article.id}>
             <div className={`${styles.articleItem} 'list-group-item d-flex justify-content-between align-items-start'` }>
               <div>
-                <div style={{ fontSize: 15, fontWeight: 'bold' }}>
-                  <a href={article.link} target="_blank" rel="noreferrer">{article.title}</a>
+                <div>
+                  <a href={article.link} className={styles.articleTitle} target="_blank" rel="noreferrer">{article.title}</a>
                 </div>
               </div>
               <div>

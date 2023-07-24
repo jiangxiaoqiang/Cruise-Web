@@ -125,12 +125,18 @@
 }
 
 .articleItem {
-  height: 65px;
+  height: 80px;
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid lightgray;
   justify-content: center;
   align-items: center;
+}
+
+.articleTitle {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 /** 网站变灰，重大悼念活动时使用 **/
