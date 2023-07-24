@@ -178,8 +178,8 @@ const Index: React.FC = () => {
       var avatarUrl = localStorage.getItem('avatarUrl');
       return (
         <a id="user-menu">
-          {avatarUrl ? <img className="avatarImg" src={avatarUrl} onClick={avatarClick} /> : <img className="avatarImg" src={avatarImg} onClick={avatarClick} ></img>}
-          <div id="dropdown" className="dropdown-content">
+          {avatarUrl ? <img className={styles.avatarImg} src={avatarUrl} onClick={avatarClick} /> : <img className={styles.avatarImg} src={avatarImg} onClick={avatarClick} ></img>}
+          <div id="dropdown" className={styles.dropdownContent}>
             <div onClick={() => handleCruisePro()}><PayCircleOutlined /><span>订阅</span></div>
             <div onClick={() => handleControlPanel()}><ControlOutlined /><span>控制台</span></div>
             <div onClick={() => UserService.doLoginOut(readConfig("logoutUrl"))}><LogoutOutlined /><span>登出</span></div>

@@ -148,6 +148,42 @@
   font-size: 15px;
 }
 
+/* Dropdown Content (Hidden by Default) */
+.dropdownContent {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: #f9f9f9;
+  width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  right: 13%;
+  font-weight: 400;
+  font-size: 17px;
+}
+
+/* Links inside the dropdown */
+.dropdownContent div {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width: 80%;
+  border-bottom: 2px solid #eee;
+}
+
+.dropdownContent span {
+  margin-left: 15px;
+}
+
+.dropdownContent div:hover {
+  background-color: #f1f1f1
+}
+
+.avatarImg {
+  height: 35px;
+  width: 35px;
+}
+
 /** 网站变灰，重大悼念活动时使用 **/
 /**
 html {
