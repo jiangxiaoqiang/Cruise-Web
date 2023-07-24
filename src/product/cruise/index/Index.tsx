@@ -10,11 +10,12 @@ import store from "../../../store";
 import { AuthHandler, TimeUtils } from "rdjs-wheel";
 import Panel from '../menu/panel/Panel';
 import { doLoginOut, getCurrentUser } from '@/service/user/UserService';
-import { PayCircleOutlined, ToolOutlined, LogoutOutlined } from '@ant-design/icons';
+import { PayCircleOutlined, ToolOutlined, LogoutOutlined, ControlOutlined } from '@ant-design/icons';
 import { IUserModel } from '@/models/user/UserModel';
-import { Footer, Goods, withConnect } from "rd-component";
+import { Footer, Goods, UserService, withConnect } from "rd-component";
 import { readConfig } from '@/config/app/config-reader';
 import "@/scss/style.scss";
+import avatarImg from "@/asset/icon/avatar.png";
 
 const Index: React.FC = () => {
 
@@ -161,42 +162,43 @@ const Index: React.FC = () => {
     setTabKey(4);
   }
 
-  const menuItems = [
-    <div onClick={handleCruisePro} key="1"  style={{ fontSize: '16px' }}>
-      <span>Cruise Pro</span>
-    </div>,
-    <div onClick={handleControlPanel} key="2" style={{ fontSize: '16px' }}>
-      <span>控制台</span>
-    </div>,
-    <div onClick={handleLogout} key="3"  style={{ fontSize: '16px' }}>
-      <span>登出</span>
-    </div>
-  ];
-
-  const renderLogin = () => {
-    if (isLoggedIn) {
-      var avatarUrl = localStorage.getItem('avatarUrl');
-      if (avatarUrl) {
-        return (<div>
-          <div>
-            <img src={avatarUrl} />
-          </div>
-        </div>);
+  const avatarClick = () => {
+    const dropdown = document.getElementById("dropdown");
+    if (dropdown) {
+      if (dropdown.style.display == "none" || dropdown.style.display == "") {
+        dropdown.style.display = "block";
       } else {
-        return (<div>
-          <div>
-            <img ></img>
-          </div>
-        </div>);
+        dropdown.style.display = "none";
       }
     }
+  }
+
+  const renderLogin = () => {
+    if (UserService.isLoggedIn()) {
+      var avatarUrl = localStorage.getItem('avatarUrl');
+      return (
+        <a id="user-menu">
+          {avatarUrl ? <img className="avatarImg" src={avatarUrl} onClick={avatarClick} /> : <img className="avatarImg" src={avatarImg} onClick={avatarClick} ></img>}
+          <div id="dropdown" className="dropdown-content">
+            <div onClick={() => handleCruisePro()}><PayCircleOutlined /><span>订阅</span></div>
+            <div onClick={() => handleControlPanel()}><ControlOutlined /><span>控制台</span></div>
+            <div onClick={() => UserService.doLoginOut(readConfig("logoutUrl"))}><LogoutOutlined /><span>登出</span></div>
+          </div>
+        </a>
+      );
+    }
+
     const accessTokenOrigin = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
     if (accessTokenOrigin) {
       AuthHandler.storeCookieAuthInfo(accessTokenOrigin, readConfig("baseAuthUrl"), readConfig("accessTokenUrlPath"));
       loadCurrentUser();
       setIsLoggedIn(true);
     }
-    return (<div><button onClick={userLogin}>登录</button></div>);
+    return (
+      <div className={styles.login}>
+        <button className={`btn-primary ${styles.loginBtn} `} onClick={userLogin}>登录</button>
+      </div>
+    );
   }
 
   const renderArticles = (articleArray: API.ArticleListItem[]) => {
@@ -204,19 +206,20 @@ const Index: React.FC = () => {
     if (articleArray && articleArray.length > 0) {
       articleArray.forEach(article => {
         if (!localArticle.has(article.title)) {
-          var articleDom: JSX.Element = (<div key={article.id}>
-            <div className={`${styles.articleItem} 'list-group-item d-flex justify-content-between align-items-start'` }>
-              <div>
+          var articleDom: JSX.Element = (
+            <div key={article.id}>
+              <div className={`${styles.articleItem} 'list-group-item d-flex justify-content-between align-items-start'`}>
                 <div>
-                  <a href={article.link} className={styles.articleTitle} target="_blank" rel="noreferrer">{article.title}</a>
+                  <div>
+                    <a href={article.link} className={styles.articleTitle} target="_blank" rel="noreferrer">{article.title}</a>
+                  </div>
+                </div>
+                <div>
+                  <div style={{ verticalAlign: 'middle', color: '#789', marginLeft: 16, fontSize: 13, fontWeight: '500' }}>{TimeUtils.getPrevFormattedTime(parseInt(article.createdTime))}</div>
                 </div>
               </div>
-              <div>
-                <div style={{ verticalAlign: 'middle', color: '#789', marginLeft: 16, fontSize: 13, fontWeight: '500' }}>{TimeUtils.getPrevFormattedTime(parseInt(article.createdTime))}</div>
-              </div>
-            </div>
-            <div></div>
-          </div>);
+              <div></div>
+            </div>);
           elements.set(article.title, articleDom);
         }
       });
@@ -287,26 +290,27 @@ const Index: React.FC = () => {
     if (items.length === 0) {
       return (<div></div>);
     }
-    return (<InfiniteScroll
-      dataLength={localArticle.size}
-      next={fetchMoreData.bind(this, Number(currentTabKey))}
-      hasMore={true}
-      loader={<h4></h4>}
-      endMessage={
-        <p style={{ textAlign: 'center' }}>
-          <b>没有更多</b>
-        </p>
-      }
-      refreshFunction={refreshArticles}
-      pullDownToRefresh={true}
-      pullDownToRefreshContent={
-        <div style={{ textAlign: 'center' }}>↓下拉刷新</div>
-      }
-      releaseToRefreshContent={
-        <div style={{ textAlign: 'center' }}>↑松开刷新</div>
-      }>
-      {items}
-    </InfiniteScroll>);
+    return (
+      <InfiniteScroll
+        dataLength={localArticle.size}
+        next={fetchMoreData.bind(this, Number(currentTabKey))}
+        hasMore={true}
+        loader={<h4></h4>}
+        endMessage={
+          <p style={{ textAlign: 'center' }}>
+            <b>没有更多</b>
+          </p>
+        }
+        refreshFunction={refreshArticles}
+        pullDownToRefresh={true}
+        pullDownToRefreshContent={
+          <div style={{ textAlign: 'center' }}>↓下拉刷新</div>
+        }
+        releaseToRefreshContent={
+          <div style={{ textAlign: 'center' }}>↑松开刷新</div>
+        }>
+        {items}
+      </InfiniteScroll>);
   }
 
   return (
