@@ -31,6 +31,10 @@ const Index: React.FC = () => {
 
   React.useEffect(() => {
     tabsTrigger();
+    document.addEventListener("click", handleMenuClose);
+    return () => {
+      document.removeEventListener("click", handleMenuClose);
+    };
   }, []);
 
   React.useEffect(() => {
@@ -44,6 +48,17 @@ const Index: React.FC = () => {
       }
     }
   }, [tabKey]);
+
+  const handleMenuClose = (event: any) => {
+    const menu = document.getElementById('user-menu');
+    const dropdown = document.getElementById('dropdown');
+    if (menu && dropdown) {
+      const target = event.target;
+      if (!menu.contains(target)) {
+        dropdown.style.display = 'none';
+      }
+    }
+  }
 
   const loadCurrentUser = () => {
     if (!localStorage.getItem("userInfo") && isGetUserLoading === false) {
