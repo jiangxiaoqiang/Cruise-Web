@@ -196,3 +196,7 @@ html {
   filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
   -webkit-filter: grayscale(100%);
 }**/
+
+html {
+  font-size: 16px;
+}

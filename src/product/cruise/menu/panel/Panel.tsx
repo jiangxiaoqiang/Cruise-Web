@@ -57,7 +57,7 @@ const Panel: React.FC<PanelProps> = (props: any) => {
       </div>
       <div className={styles.panelContent}>
         <div id="userinfo" style={{ display: 'None' }}>
-          <div title="基本信息" className="card" style={{ marginBottom: '20px' }}>
+          <div className="card" style={{ marginBottom: '20px' }}>
             <div className={`${styles.cheader} card-header`}>
               <div>基本信息</div>
             </div>
@@ -72,7 +72,7 @@ const Panel: React.FC<PanelProps> = (props: any) => {
               <div ></div>
             </div>
           </div>
-          <div className="card" title="登录凭据">
+          <div className="card">
             <div className={`${styles.cheader} card-header`}>
               <div>登录凭据</div>
             </div>
