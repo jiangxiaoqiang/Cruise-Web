@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM nginx:1.25.1-alpine
 
 LABEL org.reddwarf.image.authors="jiangtingqiang@gmail.com"
 
